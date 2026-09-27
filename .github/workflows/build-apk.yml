@@ -21,10 +21,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+          java-version: '17'
 
       - name: Install Capacitor & Prepare Project
         run: |
@@ -33,6 +30,15 @@ jobs:
           npx cap init "AI Studio" "com.aistudio.app" --web-dir app
           npx cap add android
           npx cap sync android
+
+      - name: Fix Duplicate Kotlin Classes
+        run: |
+          cat << 'KOTLIN_FIX' >> android/app/build.gradle
+          configurations.all {
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+          }
+          KOTLIN_FIX
 
       - name: Build Debug APK
         run: |
