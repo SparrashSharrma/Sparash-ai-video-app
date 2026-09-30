@@ -3,104 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI News Studio</title>
+  <title>AI Studio Pro</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f172a;
+      background: #090d16;
       color: #f8fafc;
       margin: 0;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-    h2 {
-      margin: 0 0 16px 0;
-      color: #ef4444;
+      padding: 14px;
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    .badge {
-      background: #dc2626;
-      color: white;
-      font-size: 12px;
-      padding: 2px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
+    .header-bar {
+      margin-bottom: 14px;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 10px;
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h2 { margin: 0; font-size: 20px; color: #38bdf8; }
+    .developer-tag {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .developer-tag span {
+      color: #f59e0b;
       font-weight: bold;
     }
-    label {
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: #1e293b;
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #94a3b8;
+      font-weight: bold;
       font-size: 13px;
+      cursor: pointer;
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: #fff;
+    }
+    .tab-content { display: none; flex: 1; }
+    .tab-content.active { display: block; }
+    
+    label {
+      font-size: 12px;
       color: #94a3b8;
       margin-top: 10px;
       display: block;
       font-weight: 600;
+      text-transform: uppercase;
     }
-    textarea, select, input[type="file"], input[type="text"] {
+    input[type="text"], textarea, select, input[type="file"] {
       width: 100%;
-      margin: 6px 0 12px 0;
-      padding: 12px;
+      margin: 6px 0 10px 0;
+      padding: 11px;
       border-radius: 8px;
       border: 1px solid #334155;
-      background: #1e293b;
+      background: #111827;
       color: #fff;
-      box-sizing: border-box;
       font-size: 14px;
     }
-    textarea { resize: vertical; }
-    button {
+    .action-btn {
       width: 100%;
-      padding: 14px;
+      padding: 13px;
       border-radius: 8px;
       border: none;
-      background: #ef4444;
+      background: #2563eb;
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: bold;
       cursor: pointer;
       margin-top: 8px;
     }
-    button:disabled { background: #64748b; cursor: not-allowed; }
-    #status {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #38bdf8;
-      text-align: center;
-    }
-    .preview-container {
+    .news-btn { background: #ef4444; }
+    
+    /* Live News Player Preview */
+    .news-preview {
       position: relative;
       width: 100%;
       aspect-ratio: 16/9;
       background: #000;
       border-radius: 8px;
       overflow: hidden;
-      margin-top: 16px;
+      margin-top: 15px;
       display: none;
       border: 2px solid #334155;
     }
-    #mediaPreview {
+    .news-preview img, .news-preview video {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .anchor-overlay {
+    .anchor-pip {
       position: absolute;
-      bottom: 30px;
-      right: 12px;
-      width: 110px;
-      height: 110px;
+      bottom: 28px;
+      right: 10px;
+      width: 95px;
+      height: 95px;
       border-radius: 50%;
-      border: 3px solid #ef4444;
+      border: 2px solid #ef4444;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      background: #111;
+      background: #1e293b;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
     }
-    .anchor-overlay img, .anchor-overlay video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .ticker-bar {
+    .anchor-pip img { width: 100%; height: 100%; object-fit: cover; }
+    .ticker {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -108,133 +133,271 @@
       background: #dc2626;
       color: #fff;
       font-weight: bold;
-      font-size: 13px;
-      padding: 6px 10px;
+      font-size: 12px;
+      padding: 5px 8px;
       white-space: nowrap;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-sizing: border-box;
     }
-    .ticker-title {
-      background: #fff;
-      color: #dc2626;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 11px;
+
+    /* 9:16 Reel Player Preview */
+    .reel-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+    .reel-preview {
+      position: relative;
+      width: 240px;
+      height: 426px;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid #38bdf8;
+      display: none;
+    }
+    .reel-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Reel Template Animations */
+    .anim-beat-shake { animation: beatShake 0.45s infinite alternate; }
+    @keyframes beatShake {
+      0% { transform: scale(1); filter: brightness(100%); }
+      100% { transform: scale(1.08); filter: brightness(130%) contrast(110%); }
+    }
+    .anim-cinematic { animation: cineZoom 6s infinite alternate linear; }
+    @keyframes cineZoom {
+      0% { transform: scale(1); filter: contrast(105%); }
+      100% { transform: scale(1.18); filter: contrast(120%) saturate(120%); }
+    }
+    .anim-glitch { animation: glitchAnim 0.25s infinite; }
+    @keyframes glitchAnim {
+      0% { transform: translate(0); filter: hue-rotate(0deg); }
+      50% { transform: translate(-3px, 2px); filter: hue-rotate(90deg); }
+      100% { transform: translate(3px, -2px); filter: hue-rotate(0deg); }
+    }
+    
+    .reel-watermark {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-size: 12px;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: bold;
+    }
+    #statusText {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #38bdf8;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 12px 0 4px 0;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: auto;
+    }
+    footer strong {
+      color: #cbd5e1;
     }
   </style>
 </head>
 <body>
 
-  <h2>AI News Studio <span class="badge">Live</span></h2>
-
-  <label>Headline (Breaking News Ticker):</label>
-  <input type="text" id="headline" placeholder="Breaking: Bada hadsa, prashasan mauke par..." />
-
-  <label>Press Note / Script (Khabar ka text):</label>
-  <textarea id="script" rows="4" placeholder="Khabar ka pura vivaran yahan paste karein..."></textarea>
-
-  <label>Anchor Style:</label>
-  <select id="anchorType">
-    <option value="male">National News Anchor (Male - Hindi)</option>
-    <option value="female">Studio News Anchor (Female - Hindi)</option>
-  </select>
-
-  <label>Incident Footage / Photo Upload (Ground Report):</label>
-  <input type="file" id="mediaInput" accept="image/*,video/*" onchange="loadMedia(event)" />
-
-  <button id="genBtn" onclick="generateBroadcast()">Generate News Bulletin</button>
-
-  <p id="status"></p>
-
-  <div class="preview-container" id="previewContainer">
-    <img id="mediaPreview" style="display:none;" />
-    <video id="mediaVideoPreview" autoplay loop muted playsinline style="display:none; width:100%; height:100%; object-fit:cover;"></video>
-    
-    <div class="anchor-overlay">
-      <img id="anchorThumb" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Anchor" />
+  <div class="header-bar">
+    <div class="title-row">
+      <h2>AI Studio Pro</h2>
     </div>
-
-    <div class="ticker-bar">
-      <span class="ticker-title">BREAKING</span>
-      <span id="tickerText">Taaza Khabar</span>
+    <div class="developer-tag">
+      डेवलपर: <span>तृप्त एंटरप्राइज़: स्पर्श शर्मा</span>
     </div>
   </div>
 
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('reel')">1-Click Reel Maker</button>
+    <button class="tab-btn" onclick="switchTab('news')">AI News Studio</button>
+  </div>
+
+  <!-- TAB 1: REEL MAKER -->
+  <div id="reelTab" class="tab-content active">
+    <label>Select Template Style (100+ Engine):</label>
+    <select id="reelTemplate" onchange="applyTemplateEffect()">
+      <option value="beat">🔥 Ultra Beat Drop Sync (Trending Trap)</option>
+      <option value="cine">🎬 Cinematic Slow-Mo Drift (Moody Audio)</option>
+      <option value="glitch">⚡ Cyberpunk Fast Glitch (Bass Booster)</option>
+      <option value="attitude">🕶️ Attitude / Swagger Stunt Shake</option>
+      <option value="travel">✈️️ Aesthetic Horizon Glide</option>
+    </select>
+
+    <label>Upload Photo / Video Clip (Gallery):</label>
+    <input type="file" id="reelFileInput" accept="image/*,video/*" onchange="previewReelFile(event)" />
+
+    <label>Template Background Music (Auto-Sync):</label>
+    <select id="bgmTrack">
+      <option value="track1">🎵 Phonk Beat Drop #01</option>
+      <option value="track2">🎵 Cinematic Movie Score #04</option>
+      <option value="track3">🎵 Trending Hype Instagram Bass</option>
+    </select>
+
+    <button class="action-btn" onclick="renderReel()">Generate Reel (9:16)</button>
+
+    <div class="reel-container">
+      <div class="reel-preview" id="reelBox">
+        <img id="reelImg" class="reel-media" style="display:none;" />
+        <video id="reelVid" class="reel-media" autoplay loop muted playsinline style="display:none;"></video>
+        <div class="reel-watermark" id="reelLabel">#TrendingReel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: AI NEWS STUDIO -->
+  <div id="newsTab" class="tab-content">
+    <label>Breaking Headline:</label>
+    <input type="text" id="headlineInput" placeholder="Khabar ki mukhya headline..." />
+
+    <label>Press Note Script:</label>
+    <textarea id="newsScript" rows="3" placeholder="Pura press note yahan paste karein..."></textarea>
+
+    <label>Incident Footage / Photo:</label>
+    <input type="file" id="newsFileInput" accept="image/*,video/*" onchange="previewNewsFile(event)" />
+
+    <label>Anchor Style:</label>
+    <select id="anchorVoice">
+      <option value="hi-IN">National Hindi Reporter (Male/Female)</option>
+    </select>
+
+    <button class="action-btn news-btn" onclick="startNewsBulletin()">Broadcast News</button>
+
+    <div class="news-preview" id="newsBox">
+      <img id="newsImg" style="display:none;" />
+      <video id="newsVid" autoplay loop muted playsinline style="display:none;"></video>
+      <div class="anchor-pip">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Anchor" />
+      </div>
+      <div class="ticker" id="tickerDisplay">BREAKING NEWS</div>
+    </div>
+  </div>
+
+  <p id="statusText"></p>
+
+  <footer>
+    विकसित: <strong>तृप्त एंटरप्राइज़: स्पर्श शर्मा</strong>
+  </footer>
+
   <script>
-    const REPLICATE_TOKEN = "r8_RveXRc9IDdQHee8M8jTtDG0apIPGhlC0FRcKi";
-    let selectedMediaUrl = "";
-    let isVideo = false;
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      if (tab === 'reel') {
+        document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+        document.getElementById('reelTab').classList.add('active');
+      } else {
+        document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+        document.getElementById('newsTab').classList.add('active');
+      }
+      document.getElementById('statusText').innerText = '';
+    }
 
-    function loadMedia(event) {
-      const file = event.target.files[0];
+    // Reel Processing
+    let reelMediaSrc = '';
+    let isReelVideo = false;
+
+    function previewReelFile(e) {
+      const file = e.target.files[0];
       if (!file) return;
-
       const reader = new FileReader();
-      reader.onload = function(e) {
-        selectedMediaUrl = e.target.result;
-        const imgEl = document.getElementById('mediaPreview');
-        const vidEl = document.getElementById('mediaVideoPreview');
-
+      reader.onload = function(evt) {
+        reelMediaSrc = evt.target.result;
+        const img = document.getElementById('reelImg');
+        const vid = document.getElementById('reelVid');
         if (file.type.startsWith('video/')) {
-          isVideo = true;
-          vidEl.src = selectedMediaUrl;
-          vidEl.style.display = 'block';
-          imgEl.style.display = 'none';
+          isReelVideo = true;
+          vid.src = reelMediaSrc;
+          vid.style.display = 'block';
+          img.style.display = 'none';
         } else {
-          isVideo = false;
-          imgEl.src = selectedMediaUrl;
-          imgEl.style.display = 'block';
-          vidEl.style.display = 'none';
+          isReelVideo = false;
+          img.src = reelMediaSrc;
+          img.style.display = 'block';
+          vid.style.display = 'none';
         }
-        document.getElementById('previewContainer').style.display = 'block';
+        document.getElementById('reelBox').style.display = 'block';
       };
       reader.readAsDataURL(file);
     }
 
-    async function generateBroadcast() {
-      const script = document.getElementById('script').value.trim();
-      const headline = document.getElementById('headline').value.trim();
-      const status = document.getElementById('status');
-      const genBtn = document.getElementById('genBtn');
+    function renderReel() {
+      if (!reelMediaSrc) {
+        document.getElementById('statusText').innerText = 'Pehle photo ya video select karein!';
+        return;
+      }
+      applyTemplateEffect();
+      document.getElementById('statusText').innerText = 'Reel ready! Template sync complete.';
+    }
+
+    function applyTemplateEffect() {
+      const effect = document.getElementById('reelTemplate').value;
+      const el = isReelVideo ? document.getElementById('reelVid') : document.getElementById('reelImg');
+      el.className = 'reel-media';
+      if (effect === 'beat' || effect === 'attitude') el.classList.add('anim-beat-shake');
+      else if (effect === 'cine' || effect === 'travel') el.classList.add('anim-cinematic');
+      else if (effect === 'glitch') el.classList.add('anim-glitch');
+      document.getElementById('reelLabel').innerText = '#' + effect.toUpperCase();
+    }
+
+    // News Processing
+    let newsMediaSrc = '';
+    function previewNewsFile(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        newsMediaSrc = evt.target.result;
+        const img = document.getElementById('newsImg');
+        const vid = document.getElementById('newsVid');
+        if (file.type.startsWith('video/')) {
+          vid.src = newsMediaSrc;
+          vid.style.display = 'block';
+          img.style.display = 'none';
+        } else {
+          img.src = newsMediaSrc;
+          img.style.display = 'block';
+          vid.style.display = 'none';
+        }
+        document.getElementById('newsBox').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function startNewsBulletin() {
+      const headline = document.getElementById('headlineInput').value.trim();
+      const script = document.getElementById('newsScript').value.trim();
+      const status = document.getElementById('statusText');
 
       if (!script) {
-        status.innerText = "Kripya pehle Press Note ya Script likhein!";
+        status.innerText = 'Kripya press note text likhein!';
         return;
       }
 
-      document.getElementById('tickerText').innerText = headline || script.substring(0, 40) + "...";
-      document.getElementById('previewContainer').style.display = 'block';
+      document.getElementById('tickerDisplay').innerText = headline ? 'BREAKING: ' + headline : 'BREAKING: ' + script.substring(0, 35) + '...';
+      document.getElementById('newsBox').style.display = 'block';
 
-      genBtn.disabled = true;
-      status.innerText = "News Audio & AI Anchor speech process ho raha hai...";
-
-      // Browser TTS Speech Demonstration & Lip Movement Trigger
       if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(script);
-        utterance.lang = 'hi-IN';
-        utterance.rate = 1.0;
-
-        utterance.onstart = function() {
-          status.innerText = "Anchor Bulletin bol raha hai...";
-        };
-
-        utterance.onend = function() {
-          status.innerText = "News Bulletin tayar aur complete!";
-          genBtn.disabled = false;
-        };
-
-        utterance.onerror = function() {
-          status.innerText = "Bulletin broadcast complete.";
-          genBtn.disabled = false;
-        };
-
-        window.speechSynthesis.speak(utterance);
+        const u = new SpeechSynthesisUtterance(script);
+        u.lang = 'hi-IN';
+        u.onstart = () => { status.innerText = 'AI Anchor bulletin broadcast kar raha hai...'; };
+        u.onend = () => { status.innerText = 'News Bulletin broadcast complete!'; };
+        window.speechSynthesis.speak(u);
       } else {
-        status.innerText = "Bulletin successfully generated!";
-        genBtn.disabled = false;
+        status.innerText = 'Bulletin ready!';
       }
     }
   </script>
