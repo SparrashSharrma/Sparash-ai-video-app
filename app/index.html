@@ -6,29 +6,50 @@
   <style>
     body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
     input, textarea, button { width: 100%; margin: 8px 0; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1e1e1e; color: #fff; box-sizing: border-box; }
-    button { background: #2563eb; font-weight: bold; cursor: pointer; }
+    button { background: #2563eb; font-weight: bold; cursor: pointer; border: none; }
     video { width: 100%; border-radius: 8px; margin-top: 15px; }
   </style>
 </head>
 <body>
   <h2>AI Video Studio</h2>
+
+  <label>Server URL:</label>
+  <input id="serverUrl" type="text" placeholder="https://xxxx.trycloudflare.com" />
+
   <label>Image URL:</label>
   <input id="img" type="text" placeholder="https://i.postimg.cc/..." />
+
   <label>Prompt:</label>
   <textarea id="prompt" rows="3" placeholder="Describe motion..."></textarea>
+
   <button onclick="generateVideo()">Generate Stunt Video</button>
   <p id="status"></p>
   <video id="player" controls style="display:none;"></video>
 
   <script>
+    // पिछला डाला गया सर्वर लिंक याद रखेगा
+    const savedUrl = localStorage.getItem('server_url');
+    if (savedUrl) document.getElementById('serverUrl').value = savedUrl;
+
     async function generateVideo() {
       const status = document.getElementById('status');
       const player = document.getElementById('player');
+      let baseUrl = document.getElementById('serverUrl').value.trim();
+
+      if (!baseUrl) {
+        status.innerText = "Error: Pehle Server URL daalein!";
+        return;
+      }
+
+      // Trailing slash हटाना
+      if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+      localStorage.setItem('server_url', baseUrl);
+
       status.innerText = "Generating video on server... (Please wait)";
       player.style.display = "none";
 
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/generate-cinematic-scene', {
+        const res = await fetch(`${baseUrl}/api/generate-cinematic-scene`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -37,6 +58,7 @@
             duration: 5
           })
         });
+
         const data = await res.json();
         if (data.cinematic_video_url) {
           status.innerText = "Done!";
