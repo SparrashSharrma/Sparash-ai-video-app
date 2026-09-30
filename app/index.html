@@ -3,222 +3,406 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AI Studio Pro Max</title>
+  <title>AI Studio Pro Max - Tript Enterprises</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #6366f1;
-      --accent: #ec4899;
-      --bg: #0b0f19;
-      --card: #151c2c;
+      --bg: #07090e;
+      --surface: #101524;
+      --surface-card: #161d31;
+      --primary: #4f46e5;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --accent: #06b6d4;
       --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #242f48;
+      --text-dim: #94a3b8;
+      --border: #232d48;
       --danger: #ef4444;
+      --success: #10b981;
+      --radius: 16px;
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 16px 14px 28px 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
-      margin: 0;
-      padding: 16px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
     }
-    .header {
+
+    .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
+      margin-bottom: 14px;
     }
-    .header h1 {
-      font-size: 20px;
-      margin: 0;
-      background: linear-gradient(135deg, #38bdf8, #818cf8);
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .developer-badge {
-      font-size: 11px;
-      background: rgba(245, 158, 11, 0.15);
+
+    .dev-badge {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
       color: #fbbf24;
+      font-size: 11px;
+      font-weight: 700;
       padding: 4px 10px;
-      border-radius: 20px;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      font-weight: 600;
+      border-radius: 999px;
     }
-    .tabs {
+
+    .tabs-wrapper {
       display: flex;
-      background: var(--card);
+      background: var(--surface);
       padding: 4px;
-      border-radius: 12px;
-      gap: 6px;
-      margin-bottom: 20px;
+      border-radius: 14px;
       border: 1px solid var(--border);
+      margin-bottom: 16px;
+      gap: 6px;
     }
-    .tab {
+
+    .tab-btn {
       flex: 1;
-      padding: 10px;
-      font-size: 13px;
-      font-weight: bold;
-      border-radius: 8px;
+      padding: 11px;
       border: none;
+      border-radius: 10px;
       background: transparent;
-      color: var(--text-muted);
+      color: var(--text-dim);
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s;
     }
-    .tab.active {
+
+    .tab-btn.active {
       background: var(--primary);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
     }
-    .section { display: none; }
-    .section.active { display: block; }
-    
-    .card {
-      background: var(--card);
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .studio-card {
+      background: var(--surface-card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 16px;
       margin-bottom: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
     }
-    label {
-      font-size: 12px;
-      font-weight: bold;
-      color: var(--text-muted);
+
+    .input-group { margin-bottom: 14px; }
+
+    .input-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-dim);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: block;
+      letter-spacing: 0.8px;
       margin-bottom: 6px;
+      display: block;
     }
-    input, textarea, select {
+
+    .input-box, select, textarea {
       width: 100%;
-      background: #0d1322;
-      border: 1px solid var(--border);
+      background: #0b0e17;
+      border: 1.5px solid var(--border);
       color: #fff;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-    .btn {
-      width: 100%;
-      padding: 14px;
-      font-size: 15px;
-      font-weight: bold;
+      padding: 12px 14px;
       border-radius: 10px;
-      border: none;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .file-dropzone {
+      border: 2px dashed var(--border);
+      background: rgba(11, 14, 23, 0.6);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
       cursor: pointer;
-      color: #fff;
+      position: relative;
+    }
+
+    .file-dropzone input {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-dropzone-text {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .file-dropzone-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 3px;
+    }
+
+    .main-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: var(--primary-gradient);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: transform 0.1s;
     }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary { background: linear-gradient(135deg, var(--primary), #4f46e5); }
-    .btn-news { background: linear-gradient(135deg, var(--danger), #b91c1c); }
-    .btn-download { background: #10b981; margin-top: 10px; display: none; }
 
-    /* Canvas Screen Preview */
-    .viewport-container {
-      display: flex;
+    .news-broadcast-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Player Viewport */
+    .player-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-top: 6px;
+      display: none;
       flex-direction: column;
       align-items: center;
-      margin-top: 16px;
     }
-    canvas {
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+
+    .video-viewport {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 9/16;
       background: #000;
-      max-width: 100%;
-      border: 2px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      position: relative;
     }
-    #statusBadge {
-      text-align: center;
+
+    .video-viewport.ratio-16-9 {
+      max-width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    #videoPlayer {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    #studioCanvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: #1a2236;
+      border-radius: 3px;
+      margin-top: 12px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--primary-gradient);
+      transition: width 0.1s linear;
+    }
+
+    .status-caption {
       font-size: 13px;
       color: #38bdf8;
+      font-weight: 600;
       margin-top: 10px;
-      font-weight: 500;
+      text-align: center;
     }
+
+    .download-btn {
+      width: 100%;
+      max-width: 320px;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 12px;
+      border: none;
+      background: var(--success);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+    }
+
     footer {
       margin-top: auto;
       text-align: center;
       font-size: 12px;
-      color: var(--text-muted);
-      padding: 16px 0 6px;
+      color: var(--text-dim);
+      padding-top: 20px;
     }
-    footer span { color: #f59e0b; font-weight: bold; }
+
+    footer span { color: #fbbf24; font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>AI Studio Pro Max</h1>
-    <div class="developer-badge">तृप्त एंटरप्राइज़: स्पर्श शर्मा</div>
-  </div>
+  <header class="app-header">
+    <div class="brand-title">AI STUDIO PRO</div>
+    <div class="dev-badge">तृप्त एंटरप्राइज़: स्पर्श शर्मा</div>
+  </header>
 
-  <div class="tabs">
-    <button class="tab active" onclick="setTab('reel')">⚡ 1-Click Reel Maker</button>
-    <button class="tab" onclick="setTab('news')">🎙️ AI News Studio</button>
+  <div class="tabs-wrapper">
+    <button class="tab-btn active" onclick="switchStudioTab('reel')">✨ 1-Click Reel Pro</button>
+    <button class="tab-btn" onclick="switchStudioTab('news')">🎙️ AI News Bulletin</button>
   </div>
 
   <!-- TAB 1: 1-CLICK REEL MAKER -->
-  <div id="reelSection" class="section active">
-    <div class="card">
-      <label>1. Multiple Photos / Videos Upload Karein:</label>
-      <input type="file" id="reelMedia" accept="image/*,video/*" multiple onchange="onReelFilesSelected(event)" />
+  <div id="reelTab" class="tab-content active">
+    <div class="studio-card">
+      <div class="input-group">
+        <label class="input-label">1. Upload Photos / Videos (Multiple)</label>
+        <div class="file-dropzone">
+          <input type="file" id="reelMediaInput" accept="image/*,video/*" multiple onchange="onReelFilesPicked(event)">
+          <div class="file-dropzone-text" id="reelFileLabel">📁 Gallery se photos/videos chunein</div>
+          <div class="file-dropzone-sub">Auto Beat-Sync ke liye 3 se 10 photos chunein</div>
+        </div>
+      </div>
 
-      <label>2. Beat & Motion Template Style:</label>
-      <select id="reelStyle">
-        <option value="pulse">🔥 Fast Beat Drop Pulse (Trap BGM)</option>
-        <option value="zoom">🎬 Cinematic Infinite Zoom (Moody Vibe)</option>
-        <option value="shake">⚡ Extreme Swagger Action (Bass Boost)</option>
-      </select>
+      <div class="input-group">
+        <label class="input-label">2. Template Style</label>
+        <select id="reelTemplateSelect">
+          <option value="trap_beat">🔥 Ultra Beat Drop Pulse (Trap / Bass Boost)</option>
+          <option value="cinematic_glide">🎬 Cinematic Slow Drift (Moody Ambient)</option>
+          <option value="cyber_glitch">⚡ Cyberpunk Fast RGB Glitch (EDM)</option>
+          <option value="swagger_zoom">🕶️ Attitude Stunt Zoom & Rotate</option>
+          <option value="aesthetic_fade">✨ Aesthetic Soft Glow & Crossfade</option>
+          <option value="hyper_shake">💥 Hyper Kinetic Shake (Trending Reel)</option>
+        </select>
+      </div>
 
-      <label>3. Background Music Sound Beat:</label>
-      <select id="reelMusic">
-        <option value="electro">🎵 Trending Energetic Phonk Beat</option>
-        <option value="cyber">🎵 Cyberpunk Hyper Drum Beat</option>
-      </select>
+      <div class="input-group">
+        <label class="input-label">3. Reel Duration (20s - 60s)</label>
+        <select id="reelDurationSelect">
+          <option value="20">⏱️ 20 Seconds (Fast Reel)</option>
+          <option value="30" selected>⏱️ 30 Seconds (Instagram Standard)</option>
+          <option value="45">⏱️ 45 Seconds (Extended Story)</option>
+          <option value="60">⏱️ 60 Seconds (Full 1-Minute Showcase)</option>
+        </select>
+      </div>
 
-      <button class="btn btn-primary" onclick="renderReel()">🚀 Generate Reel Video</button>
+      <div class="input-group">
+        <label class="input-label">4. BGM Sound Track</label>
+        <select id="reelSoundTrack">
+          <option value="phonk">🎵 Trending High-Energy Phonk Bass</option>
+          <option value="synthwave">🎵 Retro Synthwave Drive Beat</option>
+          <option value="hiphop">🎵 Deep Boom-Bap Lo-Fi Beat</option>
+        </select>
+      </div>
+
+      <button class="main-btn" onclick="startReelGeneration()">
+        🚀 Generate Complete Reel (With Music & Playback)
+      </button>
     </div>
   </div>
 
   <!-- TAB 2: AI NEWS STUDIO -->
-  <div id="newsSection" class="section">
-    <div class="card">
-      <label>1. Breaking News Headline:</label>
-      <input type="text" id="newsHead" placeholder="Taaza Bada Hadsa / Khabar..." />
+  <div id="newsTab" class="tab-content">
+    <div class="studio-card">
+      <div class="input-group">
+        <label class="input-label">1. Video Frame Format (Ratio)</label>
+        <select id="newsAspectRatio">
+          <option value="16:9">📺 16:9 Landscape (YouTube / TV Bulletin)</option>
+          <option value="9:16">📱 9:16 Vertical (Instagram Reels / Shorts)</option>
+        </select>
+      </div>
 
-      <label>2. Press Note (Hindi News Script):</label>
-      <textarea id="newsText" rows="3" placeholder="Pura press note yahan paste karein. AI Anchor ise bolkar sunayega..."></textarea>
+      <div class="input-group">
+        <label class="input-label">2. Breaking News Headline</label>
+        <input type="text" class="input-box" id="newsHeadText" placeholder="Udaharan: Badi khabar, prashasan ne liya sakht faisla..." />
+      </div>
 
-      <label>3. Upload Custom AI Anchor Photo:</label>
-      <input type="file" id="anchorImgInput" accept="image/*" onchange="onAnchorUploaded(event)" />
+      <div class="input-group">
+        <label class="input-label">3. Press Note (Hindi News Script for Voice-over)</label>
+        <textarea rows="3" id="newsFullScript" placeholder="Khabar ka pura vivaran yahan likhein ya paste karein. AI Anchor ise poori Hindi aawaz ke saath padhega..."></textarea>
+      </div>
 
-      <label>4. Upload Ground Footage / Incident Photos (Multiple):</label>
-      <input type="file" id="newsMedia" accept="image/*,video/*" multiple onchange="onNewsFilesSelected(event)" />
+      <div class="input-group">
+        <label class="input-label">4. Custom News Anchor Photo (Optional)</label>
+        <div class="file-dropzone">
+          <input type="file" id="anchorUploadInput" accept="image/*" onchange="onCustomAnchorPicked(event)">
+          <div class="file-dropzone-text" id="anchorLabel">👤 Anchor ki photo upload karein (Optional)</div>
+        </div>
+      </div>
 
-      <button class="btn btn-news" onclick="renderNews()">📢 Broadcast & Create News</button>
+      <div class="input-group">
+        <label class="input-label">5. Incident Footage / Ground Photos (Multiple)</label>
+        <div class="file-dropzone">
+          <input type="file" id="newsMediaInput" accept="image/*,video/*" multiple onchange="onNewsMediaPicked(event)">
+          <div class="file-dropzone-text" id="newsMediaLabel">📹 Khabar ki photos ya video clips chunein</div>
+        </div>
+      </div>
+
+      <button class="main-btn news-broadcast-btn" onclick="startNewsGeneration()">
+        📢 Broadcast News (Hindi Voice-over & Lip-Sync)
+      </button>
     </div>
   </div>
 
-  <!-- COMMON VIEWPORT & DOWNLOAD -->
-  <div class="viewport-container">
-    <canvas id="studioCanvas" width="720" height="1280" style="display:none; width: 270px; height: 480px;"></canvas>
-    <div id="statusBadge"></div>
-    <button id="dlBtn" class="btn btn-download" onclick="downloadVideo()">💾 Download Video To Gallery</button>
+  <!-- PREVIEW, PLAYBACK & DOWNLOAD SECTION -->
+  <div class="player-card" id="playerContainer">
+    <div class="video-viewport" id="viewportFrame">
+      <canvas id="studioCanvas" width="720" height="1280"></canvas>
+      <video id="videoPlayer" controls playsinline></video>
+    </div>
+
+    <div class="progress-bar-container" id="progBar">
+      <div class="progress-fill" id="progFill"></div>
+    </div>
+
+    <div class="status-caption" id="statusMessage">Tayar ho raha hai...</div>
+
+    <button class="download-btn" id="galleryDownloadBtn" onclick="saveVideoToDevice()">
+      📥 Download Video To Gallery (MP4/WebM)
+    </button>
   </div>
 
   <footer>
@@ -228,155 +412,226 @@
   <script>
     const canvas = document.getElementById('studioCanvas');
     const ctx = canvas.getContext('2d');
-    const statusBadge = document.getElementById('statusBadge');
-    const dlBtn = document.getElementById('dlBtn');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const playerContainer = document.getElementById('playerContainer');
+    const viewportFrame = document.getElementById('viewportFrame');
+    const progBar = document.getElementById('progBar');
+    const progFill = document.getElementById('progFill');
+    const statusMessage = document.getElementById('statusMessage');
+    const galleryDownloadBtn = document.getElementById('galleryDownloadBtn');
 
-    let currentTab = 'reel';
-    let loadedReelImages = [];
-    let loadedNewsMedia = [];
+    let reelFiles = [];
+    let newsFiles = [];
     let customAnchorImg = null;
-    let animTimer = null;
-    let audioCtx = null;
+    let audioContext = null;
     let mediaRecorder = null;
     let recordedChunks = [];
-    let recordedBlob = null;
+    let finalVideoBlob = null;
+    let animRequest = null;
 
-    // Default Anchor
     const defaultAnchor = new Image();
     defaultAnchor.crossOrigin = "anonymous";
     defaultAnchor.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80";
 
-    function setTab(tab) {
-      currentTab = tab;
-      document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', (tab === 'reel' && i === 0) || (tab === 'news' && i === 1)));
-      document.getElementById('reelSection').classList.toggle('active', tab === 'reel');
-      document.getElementById('newsSection').classList.toggle('active', tab === 'news');
-      resetPlayback();
+    function switchStudioTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (tab === 'reel' && i === 0) || (tab === 'news' && i === 1)));
+      document.getElementById('reelTab').classList.toggle('active', tab === 'reel');
+      document.getElementById('newsTab').classList.toggle('active', tab === 'news');
+      stopCurrentProcess();
     }
 
-    function resetPlayback() {
-      if (animTimer) cancelAnimationFrame(animTimer);
+    function stopCurrentProcess() {
+      if (animRequest) cancelAnimationFrame(animRequest);
       if (window.speechSynthesis) window.speechSynthesis.cancel();
-      canvas.style.display = 'none';
-      dlBtn.style.display = 'none';
-      statusBadge.innerText = '';
+      if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+      playerContainer.style.display = 'none';
+      videoPlayer.style.display = 'none';
+      videoPlayer.pause();
+      canvas.style.display = 'block';
+      galleryDownloadBtn.style.display = 'none';
     }
 
-    function onAnchorUploaded(e) {
+    function onReelFilesPicked(e) {
+      reelFiles = [];
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+      document.getElementById('reelFileLabel').innerText = `✅ ${files.length} Files Selected!`;
+      files.forEach(file => {
+        const r = new FileReader();
+        r.onload = ev => {
+          const img = new Image();
+          img.src = ev.target.result;
+          reelFiles.push(img);
+        };
+        r.readAsDataURL(file);
+      });
+    }
+
+    function onCustomAnchorPicked(e) {
       const file = e.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (evt) => {
+      document.getElementById('anchorLabel').innerText = `✅ Anchor Photo Added!`;
+      const r = new FileReader();
+      r.onload = ev => {
         customAnchorImg = new Image();
-        customAnchorImg.src = evt.target.result;
+        customAnchorImg.src = ev.target.result;
       };
-      reader.readAsDataURL(file);
+      r.readAsDataURL(file);
     }
 
-    function onReelFilesSelected(e) {
-      loadedReelImages = [];
+    function onNewsMediaPicked(e) {
+      newsFiles = [];
       const files = Array.from(e.target.files);
+      if (!files.length) return;
+      document.getElementById('newsMediaLabel').innerText = `✅ ${files.length} Ground Media Selected!`;
       files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
+        const r = new FileReader();
+        r.onload = ev => {
           const img = new Image();
-          img.src = evt.target.result;
-          loadedReelImages.push(img);
+          img.src = ev.target.result;
+          newsFiles.push(img);
         };
-        reader.readAsDataURL(file);
+        r.readAsDataURL(file);
       });
     }
 
-    function onNewsFilesSelected(e) {
-      loadedNewsMedia = [];
-      const files = Array.from(e.target.files);
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          const img = new Image();
-          img.src = evt.target.result;
-          loadedNewsMedia.push(img);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+    function createSoundBeatEngine() {
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') audioContext.resume();
 
-    // Audio Engine: Beat Synthesizer for Reels
-    function playBeatSound() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(140, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(35, audioCtx.currentTime + 0.18);
-        gain.gain.setValueAtTime(1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+      const dest = audioContext.createMediaStreamDestination();
+      let isPlaying = true;
+
+      function triggerKick(time) {
+        if (!isPlaying) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.frequency.setValueAtTime(150, time);
+        osc.frequency.exponentialRampToValueAtTime(32, time + 0.16);
+        gain.gain.setValueAtTime(1.0, time);
+        gain.gain.exponentialRampToValueAtTime(0.01, time + 0.16);
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.18);
-      } catch (e) {}
-    }
-
-    // Recording Engine for Gallery Download
-    function startRecording() {
-      recordedChunks = [];
-      const stream = canvas.captureStream(30);
-      try {
-        mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-      } catch (e) {
-        mediaRecorder = new MediaRecorder(stream);
+        gain.connect(audioContext.destination);
+        gain.connect(dest);
+        osc.start(time);
+        osc.stop(time + 0.16);
       }
-      mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
-      mediaRecorder.onstop = () => {
-        recordedBlob = new Blob(recordedChunks, { type: 'video/mp4' });
-        dlBtn.style.display = 'block';
-        statusBadge.innerText = '✅ Video Ready! Neeche "Download" button dabayein.';
+
+      function triggerSnare(time) {
+        if (!isPlaying) return;
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(260, time);
+        gain.gain.setValueAtTime(0.4, time);
+        gain.gain.exponentialRampToValueAtTime(0.01, time + 0.12);
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+        gain.connect(dest);
+        osc.start(time);
+        osc.stop(time + 0.12);
+      }
+
+      const interval = 60 / 128;
+      let nextBeatTime = audioContext.currentTime;
+      let beatCounter = 0;
+
+      const timerId = setInterval(() => {
+        if (!isPlaying) { clearInterval(timerId); return; }
+        while (nextBeatTime < audioContext.currentTime + 0.2) {
+          if (beatCounter % 2 === 0) triggerKick(nextBeatTime);
+          else triggerSnare(nextBeatTime);
+          beatCounter++;
+          nextBeatTime += interval / 2;
+        }
+      }, 50);
+
+      return {
+        audioStreamTrack: dest.stream.getAudioTracks()[0],
+        stop: () => { isPlaying = false; }
       };
-      mediaRecorder.start();
     }
 
-    // RENDER: 1-CLICK REEL
-    function renderReel() {
-      if (loadedReelImages.length === 0) {
-        alert("Kripya pehle 1 ya zyada photos/videos select karein!");
+    // 1-CLICK REEL GENERATOR
+    function startReelGeneration() {
+      if (reelFiles.length === 0) {
+        alert("Kripya pehle Gallery se 1 ya zyada photo/video chunein!");
         return;
       }
-      resetPlayback();
+
+      stopCurrentProcess();
+      playerContainer.style.display = 'flex';
+      viewportFrame.className = 'video-viewport';
       canvas.width = 720;
       canvas.height = 1280;
       canvas.style.display = 'block';
-      statusBadge.innerText = 'Reel Generate aur Record ho rahi hai...';
+      progBar.style.display = 'block';
 
-      startRecording();
-      let frame = 0;
-      let currentIndex = 0;
-      const totalFrames = 250; // Approx 8-9 seconds reel
-      const style = document.getElementById('reelStyle').value;
+      const durationSec = parseInt(document.getElementById('reelDurationSelect').value, 10);
+      const template = document.getElementById('reelTemplateSelect').value;
+      const fps = 30;
+      const totalFrames = durationSec * fps;
+      let currentFrame = 0;
+      let mediaIdx = 0;
 
-      function drawReelFrame() {
-        frame++;
-        if (frame % 28 === 0) {
-          currentIndex = (currentIndex + 1) % loadedReelImages.length;
-          playBeatSound();
+      const soundEngine = createSoundBeatEngine();
+      const canvasStream = canvas.captureStream(fps);
+      if (soundEngine.audioStreamTrack) canvasStream.addTrack(soundEngine.audioStreamTrack);
+
+      recordedChunks = [];
+      try {
+        mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm;codecs=vp9,opus' });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(canvasStream);
+      }
+
+      mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        soundEngine.stop();
+        finalVideoBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+        const videoURL = URL.createObjectURL(finalVideoBlob);
+
+        canvas.style.display = 'none';
+        videoPlayer.style.display = 'block';
+        videoPlayer.src = videoURL;
+        videoPlayer.play();
+
+        progBar.style.display = 'none';
+        statusMessage.innerText = '✅ Reel Taiyar! Playback chalu hai. Gallery me save karne ke liye Download dabayein.';
+        galleryDownloadBtn.style.display = 'flex';
+      };
+
+      mediaRecorder.start();
+      statusMessage.innerText = `Reel render ho rahi hai (${durationSec}s)...`;
+
+      function renderFrame() {
+        currentFrame++;
+        const progress = (currentFrame / totalFrames) * 100;
+        progFill.style.width = progress + '%';
+
+        if (currentFrame % 35 === 0) {
+          mediaIdx = (mediaIdx + 1) % reelFiles.length;
         }
 
         ctx.fillStyle = '#000';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const img = loadedReelImages[currentIndex];
+        const img = reelFiles[mediaIdx];
         if (img && img.complete) {
           ctx.save();
           ctx.translate(canvas.width / 2, canvas.height / 2);
 
           let scale = 1.0;
-          if (style === 'pulse') scale = 1.0 + Math.sin(frame * 0.35) * 0.08;
-          else if (style === 'zoom') scale = 1.0 + (frame % 28) * 0.005;
-          else if (style === 'shake') {
-            scale = 1.05;
-            ctx.rotate((Math.random() - 0.5) * 0.02);
+          if (template === 'trap_beat') {
+            scale = 1.0 + Math.sin(currentFrame * 0.4) * 0.08;
+          } else if (template === 'cinematic_glide') {
+            scale = 1.0 + (currentFrame % 120) * 0.0018;
+          } else if (template === 'swagger_zoom') {
+            scale = 1.04;
+            ctx.rotate(Math.sin(currentFrame * 0.08) * 0.03);
+          } else if (template === 'hyper_shake') {
+            scale = 1.08;
+            if (currentFrame % 4 === 0) ctx.translate((Math.random() - 0.5) * 12, (Math.random() - 0.5) * 12);
           }
 
           ctx.scale(scale, scale);
@@ -387,161 +642,227 @@
           ctx.restore();
         }
 
-        // Overlay & Branding
-        ctx.fillStyle = 'rgba(0,0,0,0.3)';
-        ctx.fillRect(0, 0, canvas.width, 100);
+        const topGrad = ctx.createLinearGradient(0, 0, 0, 180);
+        topGrad.addColorStop(0, 'rgba(0,0,0,0.75)');
+        topGrad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = topGrad;
+        ctx.fillRect(0, 0, canvas.width, 180);
+
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 28px sans-serif';
-        ctx.fillText('AI STUDIO PRO • REEL', 30, 60);
+        ctx.font = '800 32px Outfit, sans-serif';
+        ctx.fillText('AI STUDIO PRO', 36, 70);
 
         ctx.fillStyle = '#fbbf24';
-        ctx.font = '22px sans-serif';
-        ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', 30, 90);
+        ctx.font = '600 20px Plus Jakarta Sans, sans-serif';
+        ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', 36, 105);
 
-        if (frame < totalFrames) {
-          animTimer = requestAnimationFrame(drawReelFrame);
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(36, canvas.height - 70, 200, 36);
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '700 16px Outfit, sans-serif';
+        ctx.fillText(`• ${template.toUpperCase()}`, 50, canvas.height - 46);
+
+        if (currentFrame < totalFrames) {
+          animRequest = requestAnimationFrame(renderFrame);
         } else {
           mediaRecorder.stop();
         }
       }
-      drawReelFrame();
+      renderFrame();
     }
 
-    // RENDER: AI NEWS BULLETIN
-    function renderNews() {
-      const script = document.getElementById('newsText').value.trim();
-      const headline = document.getElementById('newsHead').value.trim() || "TAAZA TAREEN KHABAR";
+    // AI NEWS BULLETIN GENERATOR (16:9 & 9:16 Both Supported)
+    function startNewsGeneration() {
+      const script = document.getElementById('newsFullScript').value.trim();
+      const head = document.getElementById('newsHeadText').value.trim() || "BREAKING NEWS BULLETIN";
+      const ratio = document.getElementById('newsAspectRatio').value;
+
       if (!script) {
-        alert("Kripya Press note script likhein!");
+        alert("Kripya Press note script text likhein!");
         return;
       }
-      resetPlayback();
-      canvas.width = 1280;
-      canvas.height = 720;
+
+      stopCurrentProcess();
+      playerContainer.style.display = 'flex';
+
+      const isVertical = ratio === '9:16';
+      viewportFrame.className = isVertical ? 'video-viewport' : 'video-viewport ratio-16-9';
+
+      canvas.width = isVertical ? 720 : 1280;
+      canvas.height = isVertical ? 1280 : 720;
       canvas.style.display = 'block';
-      statusBadge.innerText = 'AI News Anchor Bulletin padh raha hai...';
+      progBar.style.display = 'block';
 
-      startRecording();
+      let isVoiceActive = false;
+      let tickerScroll = canvas.width;
       let frame = 0;
-      let isSpeaking = false;
-      let tickerX = canvas.width;
 
-      // Start Natural Speech
-      if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(script);
-        utter.lang = 'hi-IN';
-        utter.rate = 0.95;
-        utter.onstart = () => { isSpeaking = true; };
-        utter.onend = () => {
-          isSpeaking = false;
-          setTimeout(() => { if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop(); }, 1000);
-        };
-        window.speechSynthesis.speak(utter);
-      } else {
-        isSpeaking = true;
-        setTimeout(() => { isSpeaking = false; mediaRecorder.stop(); }, 7000);
+      const destStream = canvas.captureStream(30);
+      recordedChunks = [];
+      try {
+        mediaRecorder = new MediaRecorder(destStream, { mimeType: 'video/webm' });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(destStream);
       }
 
-      function drawNewsFrame() {
+      mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = () => {
+        finalVideoBlob = new Blob(recordedChunks, { type: 'video/mp4' });
+        const videoURL = URL.createObjectURL(finalVideoBlob);
+
+        canvas.style.display = 'none';
+        videoPlayer.style.display = 'block';
+        videoPlayer.src = videoURL;
+        videoPlayer.play();
+
+        progBar.style.display = 'none';
+        statusMessage.innerText = '✅ News Bulletin Ready! Video play ho rahi hai. Gallery me download karein.';
+        galleryDownloadBtn.style.display = 'flex';
+      };
+
+      mediaRecorder.start();
+      statusMessage.innerText = "AI News Anchor Hindi me bulletin padh raha hai...";
+
+      // Hindi Native Speech Engine with Android Voice Fallback
+      if ('speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance(script);
+        u.lang = 'hi-IN';
+        u.rate = 0.95;
+
+        // Android Hindi Voice Selection
+        const voices = window.speechSynthesis.getVoices();
+        const hindiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('hin'));
+        if (hindiVoice) u.voice = hindiVoice;
+
+        u.onstart = () => { isVoiceActive = true; };
+        u.onend = () => {
+          isVoiceActive = false;
+          setTimeout(() => { if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop(); }, 1200);
+        };
+        u.onerror = () => {
+          isVoiceActive = false;
+          if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+        };
+        window.speechSynthesis.speak(u);
+      } else {
+        isVoiceActive = true;
+        setTimeout(() => { isVoiceActive = false; mediaRecorder.stop(); }, 12000);
+      }
+
+      function renderNewsFrame() {
         frame++;
-        ctx.fillStyle = '#0f172a';
+
+        // 1. Incident B-Roll Background
+        ctx.fillStyle = '#0a0f1d';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Incident B-Roll Media
-        if (loadedNewsMedia.length > 0) {
-          const mImg = loadedNewsMedia[Math.floor(frame / 60) % loadedNewsMedia.length];
-          if (mImg && mImg.complete) {
-            ctx.drawImage(mImg, 0, 0, canvas.width, canvas.height);
+        if (newsFiles.length > 0) {
+          const curMedia = newsFiles[Math.floor(frame / 70) % newsFiles.length];
+          if (curMedia && curMedia.complete) {
+            const ratioImg = Math.max(canvas.width / curMedia.width, canvas.height / curMedia.height);
+            const w = curMedia.width * ratioImg;
+            const h = curMedia.height * ratioImg;
+            ctx.drawImage(curMedia, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
           }
         }
 
-        // Dark gradient overlay for news clarity
-        const grad = ctx.createLinearGradient(0, canvas.height - 200, 0, canvas.height);
-        grad.addColorStop(0, 'rgba(0,0,0,0)');
-        grad.addColorStop(1, 'rgba(0,0,0,0.85)');
+        // Dark Studio Vignette
+        const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        grad.addColorStop(0, 'rgba(0,0,0,0.6)');
+        grad.addColorStop(0.7, 'rgba(0,0,0,0)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.92)');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 2. PiP Anchor with Lip-Sync Movement
+        // 2. Picture-in-Picture Anchor with Lip Movement
         const anchor = customAnchorImg || defaultAnchor;
-        const ax = canvas.width - 240, ay = canvas.height - 300, aw = 200, ah = 200;
+        const asize = isVertical ? 220 : 210;
+        const ax = isVertical ? (canvas.width - asize) / 2 : canvas.width - 250;
+        const ay = isVertical ? canvas.height - 390 : canvas.height - 330;
 
         ctx.save();
         ctx.beginPath();
-        ctx.arc(ax + aw / 2, ay + ah / 2, aw / 2, 0, Math.PI * 2);
+        ctx.arc(ax + asize / 2, ay + asize / 2, asize / 2, 0, Math.PI * 2);
         ctx.strokeStyle = '#ef4444';
         ctx.lineWidth = 6;
         ctx.stroke();
         ctx.clip();
-        ctx.drawImage(anchor, ax, ay, aw, ah);
+        ctx.drawImage(anchor, ax, ay, asize, asize);
 
-        // Real-Time Lip-Sync Overlay
-        if (isSpeaking) {
-          const mouthOpen = Math.abs(Math.sin(frame * 0.45)) * 14;
-          ctx.fillStyle = '#4a0e17';
+        // Real-Time Animated Mouth Lip-Sync
+        if (isVoiceActive) {
+          const mouthOpen = Math.abs(Math.sin(frame * 0.45)) * 15;
+          ctx.fillStyle = '#3a0c10';
           ctx.beginPath();
-          ctx.ellipse(ax + aw / 2, ay + ah * 0.68, 14, mouthOpen, 0, 0, Math.PI * 2);
+          ctx.ellipse(ax + asize / 2, ay + asize * 0.70, 14, mouthOpen, 0, 0, Math.PI * 2);
           ctx.fill();
         }
         ctx.restore();
 
-        // Anchor Name Plate
+        // Anchor Plate
         ctx.fillStyle = '#dc2626';
-        ctx.fillRect(ax - 10, ay + ah - 15, aw + 20, 26);
+        ctx.fillRect(ax + 10, ay + asize - 18, asize - 20, 28);
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 15px sans-serif';
+        ctx.font = '700 15px Outfit, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('AI NEWS ANCHOR', ax + aw / 2, ay + ah + 4);
+        ctx.fillText('LIVE ANCHOR', ax + asize / 2, ay + asize + 2);
         ctx.textAlign = 'left';
 
-        // 3. Breaking News Ticker Bar
+        // 3. News Ticker Bottom Bar
+        const tickerH = isVertical ? 90 : 75;
         ctx.fillStyle = '#b91c1c';
-        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+        ctx.fillRect(0, canvas.height - tickerH, canvas.width, tickerH);
 
+        const badgeW = isVertical ? 150 : 180;
         ctx.fillStyle = '#fef08a';
-        ctx.fillRect(0, canvas.height - 70, 160, 70);
-        ctx.fillStyle = '#b91c1c';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('BREAKING', 14, canvas.height - 26);
+        ctx.fillRect(0, canvas.height - tickerH, badgeW, tickerH);
+        ctx.fillStyle = '#991b1b';
+        ctx.font = '800 23px Outfit, sans-serif';
+        ctx.fillText('BREAKING', 18, canvas.height - (tickerH / 2) + 8);
 
-        // Scrolling Ticker Text
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText(headline + "  |  " + script, tickerX, canvas.height - 26);
-        tickerX -= 4;
-        if (tickerX < -1500) tickerX = canvas.width;
+        ctx.font = '700 22px Plus Jakarta Sans, sans-serif';
+        ctx.fillText(head + "  ---  " + script, tickerScroll, canvas.height - (tickerH / 2) + 8);
+        tickerScroll -= 4;
+        if (tickerScroll < -2200) tickerScroll = canvas.width;
 
-        // Branding
-        ctx.fillStyle = 'rgba(0,0,0,0.6)';
-        ctx.fillRect(0, 0, canvas.width, 50);
-        ctx.fillStyle = '#38bdf8';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('AI NEWS STUDIO', 20, 32);
+        // Top Channel Header
+        ctx.fillStyle = '#fff';
+        ctx.font = '800 22px Outfit, sans-serif';
+        ctx.fillText('AI NEWS STUDIO', 24, 44);
+
         ctx.fillStyle = '#fbbf24';
-        ctx.font = '16px sans-serif';
-        ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', canvas.width - 240, 32);
+        ctx.font = '600 16px Plus Jakarta Sans, sans-serif';
+        ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', canvas.width - (isVertical ? 220 : 250), 44);
 
-        if (mediaRecorder && mediaRecorder.state === 'recording') {
-          animTimer = requestAnimationFrame(drawNewsFrame);
+        if (mediaRecorder.state === 'recording') {
+          animRequest = requestAnimationFrame(renderNewsFrame);
         }
       }
-      drawNewsFrame();
+      renderNewsFrame();
     }
 
-    // DOWNLOAD TO GALLERY FUNCTION
-    function downloadVideo() {
-      if (!recordedBlob) return;
-      const url = URL.createObjectURL(recordedBlob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `AI_Studio_${Date.now()}.mp4`;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 100);
+    // DOWNLOAD DIRECTLY TO ANDROID GALLERY / STORAGE
+    function saveVideoToDevice() {
+      if (!finalVideoBlob) {
+        alert("Pehle video banayein!");
+        return;
+      }
+
+      const fileName = `StudioPro_${Date.now()}.mp4`;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = e.target.result;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => document.body.removeChild(a), 400);
+      };
+      reader.readAsDataURL(finalVideoBlob);
+
+      statusMessage.innerText = "📥 Video Download shuru ho gayi hai! Notification bar check karein.";
     }
   </script>
 </body>
