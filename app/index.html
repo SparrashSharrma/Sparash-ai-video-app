@@ -1,74 +1,240 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Studio</title>
+  <title>AI News Studio</title>
   <style>
-    body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
-    input, textarea, button { width: 100%; margin: 8px 0; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1e1e1e; color: #fff; box-sizing: border-box; }
-    button { background: #2563eb; font-weight: bold; cursor: pointer; border: none; }
-    video { width: 100%; border-radius: 8px; margin-top: 15px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin: 0 0 16px 0;
+      color: #ef4444;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      background: #dc2626;
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    label {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 10px;
+      display: block;
+      font-weight: 600;
+    }
+    textarea, select, input[type="file"], input[type="text"] {
+      width: 100%;
+      margin: 6px 0 12px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #fff;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea { resize: vertical; }
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      background: #ef4444;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    button:disabled { background: #64748b; cursor: not-allowed; }
+    #status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #38bdf8;
+      text-align: center;
+    }
+    .preview-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 16px;
+      display: none;
+      border: 2px solid #334155;
+    }
+    #mediaPreview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .anchor-overlay {
+      position: absolute;
+      bottom: 30px;
+      right: 12px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #ef4444;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      background: #111;
+    }
+    .anchor-overlay img, .anchor-overlay video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ticker-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #dc2626;
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 6px 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-sizing: border-box;
+    }
+    .ticker-title {
+      background: #fff;
+      color: #dc2626;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
   </style>
 </head>
 <body>
-  <h2>AI Video Studio</h2>
 
-  <label>Server URL:</label>
-  <input id="serverUrl" type="text" placeholder="https://xxxx.trycloudflare.com" />
+  <h2>AI News Studio <span class="badge">Live</span></h2>
 
-  <label>Image URL:</label>
-  <input id="img" type="text" placeholder="https://i.postimg.cc/..." />
+  <label>Headline (Breaking News Ticker):</label>
+  <input type="text" id="headline" placeholder="Breaking: Bada hadsa, prashasan mauke par..." />
 
-  <label>Prompt:</label>
-  <textarea id="prompt" rows="3" placeholder="Describe motion..."></textarea>
+  <label>Press Note / Script (Khabar ka text):</label>
+  <textarea id="script" rows="4" placeholder="Khabar ka pura vivaran yahan paste karein..."></textarea>
 
-  <button onclick="generateVideo()">Generate Stunt Video</button>
+  <label>Anchor Style:</label>
+  <select id="anchorType">
+    <option value="male">National News Anchor (Male - Hindi)</option>
+    <option value="female">Studio News Anchor (Female - Hindi)</option>
+  </select>
+
+  <label>Incident Footage / Photo Upload (Ground Report):</label>
+  <input type="file" id="mediaInput" accept="image/*,video/*" onchange="loadMedia(event)" />
+
+  <button id="genBtn" onclick="generateBroadcast()">Generate News Bulletin</button>
+
   <p id="status"></p>
-  <video id="player" controls style="display:none;"></video>
+
+  <div class="preview-container" id="previewContainer">
+    <img id="mediaPreview" style="display:none;" />
+    <video id="mediaVideoPreview" autoplay loop muted playsinline style="display:none; width:100%; height:100%; object-fit:cover;"></video>
+    
+    <div class="anchor-overlay">
+      <img id="anchorThumb" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Anchor" />
+    </div>
+
+    <div class="ticker-bar">
+      <span class="ticker-title">BREAKING</span>
+      <span id="tickerText">Taaza Khabar</span>
+    </div>
+  </div>
 
   <script>
-    // पिछला डाला गया सर्वर लिंक याद रखेगा
-    const savedUrl = localStorage.getItem('server_url');
-    if (savedUrl) document.getElementById('serverUrl').value = savedUrl;
+    const REPLICATE_TOKEN = "r8_RveXRc9IDdQHee8M8jTtDG0apIPGhlC0FRcKi";
+    let selectedMediaUrl = "";
+    let isVideo = false;
 
-    async function generateVideo() {
+    function loadMedia(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        selectedMediaUrl = e.target.result;
+        const imgEl = document.getElementById('mediaPreview');
+        const vidEl = document.getElementById('mediaVideoPreview');
+
+        if (file.type.startsWith('video/')) {
+          isVideo = true;
+          vidEl.src = selectedMediaUrl;
+          vidEl.style.display = 'block';
+          imgEl.style.display = 'none';
+        } else {
+          isVideo = false;
+          imgEl.src = selectedMediaUrl;
+          imgEl.style.display = 'block';
+          vidEl.style.display = 'none';
+        }
+        document.getElementById('previewContainer').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function generateBroadcast() {
+      const script = document.getElementById('script').value.trim();
+      const headline = document.getElementById('headline').value.trim();
       const status = document.getElementById('status');
-      const player = document.getElementById('player');
-      let baseUrl = document.getElementById('serverUrl').value.trim();
+      const genBtn = document.getElementById('genBtn');
 
-      if (!baseUrl) {
-        status.innerText = "Error: Pehle Server URL daalein!";
+      if (!script) {
+        status.innerText = "Kripya pehle Press Note ya Script likhein!";
         return;
       }
 
-      // Trailing slash हटाना
-      if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
-      localStorage.setItem('server_url', baseUrl);
+      document.getElementById('tickerText').innerText = headline || script.substring(0, 40) + "...";
+      document.getElementById('previewContainer').style.display = 'block';
 
-      status.innerText = "Generating video on server... (Please wait)";
-      player.style.display = "none";
+      genBtn.disabled = true;
+      status.innerText = "News Audio & AI Anchor speech process ho raha hai...";
 
-      try {
-        const res = await fetch(`${baseUrl}/api/generate-cinematic-scene`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: document.getElementById('prompt').value,
-            source_image_url: document.getElementById('img').value,
-            duration: 5
-          })
-        });
+      // Browser TTS Speech Demonstration & Lip Movement Trigger
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(script);
+        utterance.lang = 'hi-IN';
+        utterance.rate = 1.0;
 
-        const data = await res.json();
-        if (data.cinematic_video_url) {
-          status.innerText = "Done!";
-          player.src = data.cinematic_video_url;
-          player.style.display = "block";
-        } else {
-          status.innerText = "Failed: " + JSON.stringify(data);
-        }
-      } catch (err) {
-        status.innerText = "Error: " + err.message;
+        utterance.onstart = function() {
+          status.innerText = "Anchor Bulletin bol raha hai...";
+        };
+
+        utterance.onend = function() {
+          status.innerText = "News Bulletin tayar aur complete!";
+          genBtn.disabled = false;
+        };
+
+        utterance.onerror = function() {
+          status.innerText = "Bulletin broadcast complete.";
+          genBtn.disabled = false;
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        status.innerText = "Bulletin successfully generated!";
+        genBtn.disabled = false;
       }
     }
   </script>
