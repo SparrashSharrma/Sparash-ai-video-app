@@ -8,114 +8,133 @@
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Yatra+One&family=Rozha+One&display=swap" rel="stylesheet">
+
+  <!-- html2canvas for instant Newspaper Clipping Download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
-      --bg: #07090e;
-      --surface: #101524;
-      --surface-card: #161d31;
-      --primary: #4f46e5;
-      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-      --accent: #06b6d4;
-      --text: #f8fafc;
+      --bg: #0c0d10;
+      --surface: #14171f;
+      --card-bg: #1a1e29;
+      --border: #2c2f38;
+      
+      /* Royal Golden & White Theme */
+      --gold-primary: #d4af37;
+      --gold-light: #f3e5ab;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9e8a2 50%, #aa7c11 100%);
+      --gold-glow: rgba(212, 175, 55, 0.35);
+      --white-pure: #ffffff;
+      --white-muted: #e2e8f0;
       --text-dim: #94a3b8;
-      --border: #232d48;
-      --danger: #ef4444;
-      --success: #10b981;
-      --radius: 16px;
+      
+      --danger-red: #c81e1e;
+      --success-green: #10b981;
+      --radius: 14px;
     }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
 
     body {
       margin: 0;
       padding: 16px 14px 28px 14px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--white-pure);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
+    /* Top App Header */
     .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 14px;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 16px;
     }
 
     .brand-title {
-      font-family: 'Outfit', sans-serif;
-      font-size: 21px;
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      background: var(--primary-gradient);
+      letter-spacing: 0.5px;
+      background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 16px var(--gold-glow);
     }
 
     .dev-badge {
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      color: #fbbf24;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-light);
       font-size: 11px;
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 999px;
     }
 
+    /* Navigation Tabs (3 Modes) */
     .tabs-wrapper {
       display: flex;
       background: var(--surface);
       padding: 4px;
       border-radius: 14px;
       border: 1px solid var(--border);
-      margin-bottom: 16px;
-      gap: 6px;
+      margin-bottom: 18px;
+      gap: 4px;
     }
 
     .tab-btn {
       flex: 1;
-      padding: 11px;
+      padding: 10px 4px;
       border: none;
       border-radius: 10px;
       background: transparent;
       color: var(--text-dim);
-      font-family: 'Outfit', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.25s ease;
+      text-align: center;
     }
 
     .tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
+      background: var(--gold-gradient);
+      color: #0b0c10;
+      box-shadow: 0 4px 14px var(--gold-glow);
+      font-weight: 800;
     }
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
+    /* Studio Input Cards */
     .studio-card {
-      background: var(--surface-card);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 16px;
       margin-bottom: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
-    .input-group { margin-bottom: 14px; }
+    .input-group {
+      margin-bottom: 14px;
+    }
 
     .input-label {
       font-size: 11px;
       font-weight: 700;
-      color: var(--text-dim);
+      color: var(--gold-light);
       text-transform: uppercase;
       letter-spacing: 0.8px;
       margin-bottom: 6px;
@@ -124,19 +143,25 @@
 
     .input-box, select, textarea {
       width: 100%;
-      background: #0b0e17;
+      background: #0f121a;
       border: 1.5px solid var(--border);
-      color: #fff;
+      color: var(--white-pure);
       padding: 12px 14px;
       border-radius: 10px;
       font-size: 14px;
       font-family: inherit;
       outline: none;
+      transition: border-color 0.2s;
     }
 
+    .input-box:focus, select:focus, textarea:focus {
+      border-color: var(--gold-primary);
+    }
+
+    /* File Dropzone */
     .file-dropzone {
-      border: 2px dashed var(--border);
-      background: rgba(11, 14, 23, 0.6);
+      border: 1.5px dashed var(--gold-primary);
+      background: rgba(212, 175, 55, 0.05);
       border-radius: 12px;
       padding: 14px;
       text-align: center;
@@ -153,7 +178,7 @@
 
     .file-dropzone-text {
       font-size: 13px;
-      color: var(--accent);
+      color: var(--gold-light);
       font-weight: 600;
     }
 
@@ -163,18 +188,18 @@
       margin-top: 3px;
     }
 
+    /* Action Buttons */
     .main-btn {
       width: 100%;
       padding: 15px;
       border-radius: 12px;
       border: none;
-      font-family: 'Outfit', sans-serif;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      color: white;
-      background: var(--primary-gradient);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+      color: #0c0d10;
+      background: var(--gold-gradient);
+      box-shadow: 0 6px 20px var(--gold-glow);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -182,11 +207,19 @@
     }
 
     .news-broadcast-btn {
-      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+      background: linear-gradient(135deg, #e11d48 0%, #9f1239 100%);
+      color: #ffffff;
+      box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
     }
 
-    /* Player Viewport */
+    .clipping-btn {
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+      color: #0c0d10;
+      border: 1.5px solid var(--gold-primary);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Player Viewport (Reels & News) */
     .player-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -240,13 +273,13 @@
     .progress-fill {
       width: 0%;
       height: 100%;
-      background: var(--primary-gradient);
+      background: var(--gold-gradient);
       transition: width 0.1s linear;
     }
 
     .status-caption {
       font-size: 13px;
-      color: #38bdf8;
+      color: var(--gold-light);
       font-weight: 600;
       margin-top: 10px;
       text-align: center;
@@ -259,9 +292,8 @@
       margin-top: 12px;
       border-radius: 12px;
       border: none;
-      background: var(--success);
+      background: var(--success-green);
       color: white;
-      font-family: 'Outfit', sans-serif;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
@@ -269,7 +301,141 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+    }
+
+    /* ==============================================================
+       NEWSPAPER PRINT CLIPPING COMPONENT (100% PHOTO REPLICA)
+    ============================================================== */
+    .clipping-render-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .paper-sheet {
+      width: 100%;
+      max-width: 480px;
+      background: #fffdf7;
+      color: #111;
+      padding: 16px 14px;
+      border-radius: 6px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      border: 1px solid #dcd5c5;
+      font-family: 'Rozha One', serif, 'Plus Jakarta Sans';
+    }
+
+    .paper-masthead {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #0b0c10;
+      border-bottom: 3px double #111;
+      padding-bottom: 6px;
+      margin-bottom: 6px;
+    }
+
+    .paper-sub-strip {
+      background: #c81e1e;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .paper-headline {
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 900;
+      color: #000;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .paper-subhead {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1f2937;
+      text-align: center;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 5px 0;
+      margin-bottom: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .paper-body-grid {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .paper-text-column {
+      flex: 1.1;
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: #111;
+      text-align: justify;
+      font-weight: 500;
+    }
+
+    .paper-photo-column {
+      flex: 0.9;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .paper-incident-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #aaa;
+    }
+
+    .paper-photo-caption {
+      font-size: 10px;
+      font-weight: 700;
+      color: #222;
+      background: #f1ebd9;
+      padding: 5px;
+      border: 1px solid #d0c8b3;
+      border-top: none;
+      text-align: center;
+      border-radius: 0 0 4px 4px;
+    }
+
+    .paper-alert-box {
+      background: #fdf2f2;
+      border-left: 4px solid #c81e1e;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #991b1b;
+      margin-top: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .paper-footer-ribbon {
+      background: #c81e1e;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 10px;
+      border-radius: 3px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     footer {
@@ -280,19 +446,22 @@
       padding-top: 20px;
     }
 
-    footer span { color: #fbbf24; font-weight: 700; }
+    footer span { color: var(--gold-light); font-weight: 700; }
   </style>
 </head>
 <body>
 
+  <!-- Top App Header -->
   <header class="app-header">
     <div class="brand-title">AI STUDIO PRO</div>
     <div class="dev-badge">तृप्त एंटरप्राइज़: स्पर्श शर्मा</div>
   </header>
 
+  <!-- Navigation Tabs (3 Features) -->
   <div class="tabs-wrapper">
-    <button class="tab-btn active" onclick="switchStudioTab('reel')">✨ 1-Click Reel Pro</button>
+    <button class="tab-btn active" onclick="switchStudioTab('reel')">✨ Reel Maker</button>
     <button class="tab-btn" onclick="switchStudioTab('news')">🎙️ AI News Bulletin</button>
+    <button class="tab-btn" onclick="switchStudioTab('clipping')">📰 News Clipping</button>
   </div>
 
   <!-- TAB 1: 1-CLICK REEL MAKER -->
@@ -387,7 +556,93 @@
     </div>
   </div>
 
-  <!-- PREVIEW, PLAYBACK & DOWNLOAD SECTION -->
+  <!-- TAB 3: NEWSPAPER CLIPPING MAKER (NEW!) -->
+  <div id="clippingTab" class="tab-content">
+    <div class="studio-card">
+      <div class="input-group">
+        <label class="input-label">1. Newspaper / Channel Name (Masthead)</label>
+        <input type="text" class="input-box" id="paperNameInput" value="अम्ब हलचल न्यूज़" />
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">2. Location & Date Ribbon</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="input-box" id="paperLocationInput" value="बड़ूही | 29 सितंबर 2026" style="flex:1;" />
+          <input type="text" class="input-box" id="paperDistrictInput" value="ऊना (हिमाचल प्रदेश)" style="flex:1;" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">3. Main Super Headline (Bold Surkhi)</label>
+        <textarea rows="2" class="input-box" id="paperMainHeadlineInput">बड़ूही के पास अज्ञात वाहन की टक्कर से यूपी निवासी की मौत, पुलिस ने दर्ज किया मामला</textarea>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">4. Sub-Headline / Short Summary Line</label>
+        <input type="text" class="input-box" id="paperSubHeadlineInput" value="बड़ूही के पास अज्ञात वाहन की मौत हो गई। वाहन व चालक की तलाश जारी" />
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">5. Incident Photo Upload (Ghatna Sthal)</label>
+        <div class="file-dropzone">
+          <input type="file" id="paperPhotoInput" accept="image/*" onchange="onPaperPhotoPicked(event)">
+          <div class="file-dropzone-text" id="paperPhotoLabel">📷 Ghatna ki photo upload karein</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">6. Photo Caption</label>
+        <input type="text" class="input-box" id="paperPhotoCaptionInput" value="दुर्घटना स्थल बड़ूही, जहां पुलिस टीम साक्ष्य जुटा रही है।" />
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">7. Complete Press Note (Akhbar Detail News)</label>
+        <textarea rows="5" class="input-box" id="paperStoryInput">बड़ूही। पुलिस थाना बंगाणा के अंतर्गत बड़ूही के पास सड़क हादसे में उत्तर प्रदेश निवासी एक व्यक्ति की मौत हो गई। पुलिस को दी शिकायत में शिकायतकर्ता ने बताया कि अज्ञात वाहन चालक ने टक्कर मारकर मौके से फरार होने की बात सामने आई है। पुलिस ने धारा 106(1), 281 BNS के तहत मामला दर्ज कर जांच शुरू कर दी है।</textarea>
+      </div>
+
+      <button class="main-btn clipping-btn" onclick="generateNewspaperClipping()">
+        📰 Generate Custom Newspaper Clipping
+      </button>
+    </div>
+
+    <!-- PREVIEW & DOWNLOAD CLIPPING -->
+    <div class="clipping-render-wrap" id="clippingPreviewWrap">
+      <div class="paper-sheet" id="newspaperSheet">
+        <div class="paper-masthead" id="sheetMasthead">अम्ब हलचल न्यूज़</div>
+        
+        <div class="paper-sub-strip">
+          <span id="sheetLocDate">बड़ूही | 29 सितंबर 2026</span>
+          <span id="sheetDistrict">ऊना (हिमाचल प्रदेश)</span>
+        </div>
+
+        <div class="paper-headline" id="sheetMainHeadline">बड़ूही के पास अज्ञात वाहन की टक्कर से मौत</div>
+        <div class="paper-subhead" id="sheetSubHead">वाहन व चालक की तलाश जारी</div>
+
+        <div class="paper-body-grid">
+          <div class="paper-text-column" id="sheetBodyText"></div>
+          <div class="paper-photo-column">
+            <img id="sheetPhoto" class="paper-incident-img" src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=400&q=80" alt="Incident" />
+            <div class="paper-photo-caption" id="sheetCaption">दुर्घटना स्थल जहां पुलिस जांच कर रही है।</div>
+          </div>
+        </div>
+
+        <div class="paper-alert-box" id="sheetAlert">
+          ! पुलिस जांच के बाद ही हादसे की पूरी सच्चाई और अज्ञात वाहन का सुराग मिल सकेगा।
+        </div>
+
+        <div class="paper-footer-ribbon">
+          <span>सत्य • निष्पक्षता • जनहित</span>
+          <span id="sheetFooterBrand">अम्ब हलचल न्यूज़ द्वारा जनहित में जारी।</span>
+        </div>
+      </div>
+
+      <button class="main-btn" style="max-width:480px; margin-top:14px; background:var(--gold-gradient); color:#000;" onclick="downloadNewspaperImage()">
+        📥 Download Newspaper Cutting (HD Image To Gallery)
+      </button>
+    </div>
+  </div>
+
+  <!-- PREVIEW, PLAYBACK & DOWNLOAD SECTION (For Reels & News) -->
   <div class="player-card" id="playerContainer">
     <div class="video-viewport" id="viewportFrame">
       <canvas id="studioCanvas" width="720" height="1280"></canvas>
@@ -423,6 +678,7 @@
     let reelFiles = [];
     let newsFiles = [];
     let customAnchorImg = null;
+    let paperUploadedPhotoSrc = null;
     let audioContext = null;
     let mediaRecorder = null;
     let recordedChunks = [];
@@ -434,9 +690,10 @@
     defaultAnchor.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80";
 
     function switchStudioTab(tab) {
-      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (tab === 'reel' && i === 0) || (tab === 'news' && i === 1)));
+      document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (tab === 'reel' && i === 0) || (tab === 'news' && i === 1) || (tab === 'clipping' && i === 2)));
       document.getElementById('reelTab').classList.toggle('active', tab === 'reel');
       document.getElementById('newsTab').classList.toggle('active', tab === 'news');
+      document.getElementById('clippingTab').classList.toggle('active', tab === 'clipping');
       stopCurrentProcess();
     }
 
@@ -451,6 +708,7 @@
       galleryDownloadBtn.style.display = 'none';
     }
 
+    // Pickers
     function onReelFilesPicked(e) {
       reelFiles = [];
       const files = Array.from(e.target.files);
@@ -495,6 +753,56 @@
       });
     }
 
+    function onPaperPhotoPicked(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById('paperPhotoLabel').innerText = `✅ Incident Photo Selected!`;
+      const r = new FileReader();
+      r.onload = ev => {
+        paperUploadedPhotoSrc = ev.target.result;
+        document.getElementById('sheetPhoto').src = paperUploadedPhotoSrc;
+      };
+      r.readAsDataURL(file);
+    }
+
+    // NEWSPAPER CLIPPING GENERATOR
+    function generateNewspaperClipping() {
+      const name = document.getElementById('paperNameInput').value.trim() || "अम्ब हलचल न्यूज़";
+      const locDate = document.getElementById('paperLocationInput').value.trim();
+      const dist = document.getElementById('paperDistrictInput').value.trim();
+      const mainHead = document.getElementById('paperMainHeadlineInput').value.trim();
+      const subHead = document.getElementById('paperSubHeadlineInput').value.trim();
+      const caption = document.getElementById('paperPhotoCaptionInput').value.trim();
+      const story = document.getElementById('paperStoryInput').value.trim();
+
+      document.getElementById('sheetMasthead').innerText = name;
+      document.getElementById('sheetLocDate').innerText = locDate;
+      document.getElementById('sheetDistrict').innerText = dist;
+      document.getElementById('sheetMainHeadline').innerText = mainHead;
+      document.getElementById('sheetSubHead').innerText = subHead;
+      document.getElementById('sheetCaption').innerText = caption;
+      document.getElementById('sheetBodyText').innerText = story;
+      document.getElementById('sheetFooterBrand').innerText = `${name} द्वारा जनहित में जारी।`;
+
+      document.getElementById('clippingPreviewWrap').style.display = 'flex';
+      document.getElementById('clippingPreviewWrap').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadNewspaperImage() {
+      const target = document.getElementById('newspaperSheet');
+      html2canvas(target, { scale: 3, useCORS: true }).then(canvasEl => {
+        const dataUrl = canvasEl.toDataURL('image/jpeg', 0.95);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = dataUrl;
+        a.download = `NewsClipping_${Date.now()}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => document.body.removeChild(a), 400);
+      });
+    }
+
+    // Audio Beats Generator via Web Audio API
     function createSoundBeatEngine() {
       if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
       if (audioContext.state === 'suspended') audioContext.resume();
@@ -643,23 +951,23 @@
         }
 
         const topGrad = ctx.createLinearGradient(0, 0, 0, 180);
-        topGrad.addColorStop(0, 'rgba(0,0,0,0.75)');
+        topGrad.addColorStop(0, 'rgba(0,0,0,0.8)');
         topGrad.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = topGrad;
         ctx.fillRect(0, 0, canvas.width, 180);
 
-        ctx.fillStyle = '#fff';
-        ctx.font = '800 32px Outfit, sans-serif';
+        ctx.fillStyle = '#f3e5ab';
+        ctx.font = '800 32px Cinzel, serif';
         ctx.fillText('AI STUDIO PRO', 36, 70);
 
-        ctx.fillStyle = '#fbbf24';
+        ctx.fillStyle = '#ffffff';
         ctx.font = '600 20px Plus Jakarta Sans, sans-serif';
         ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', 36, 105);
 
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.fillRect(36, canvas.height - 70, 200, 36);
-        ctx.fillStyle = '#38bdf8';
-        ctx.font = '700 16px Outfit, sans-serif';
+        ctx.fillStyle = '#d4af37';
+        ctx.font = '700 16px Plus Jakarta Sans, sans-serif';
         ctx.fillText(`• ${template.toUpperCase()}`, 50, canvas.height - 46);
 
         if (currentFrame < totalFrames) {
@@ -671,7 +979,7 @@
       renderFrame();
     }
 
-    // AI NEWS BULLETIN GENERATOR (16:9 & 9:16 Both Supported)
+    // AI NEWS BULLETIN GENERATOR (16:9 & 9:16)
     function startNewsGeneration() {
       const script = document.getElementById('newsFullScript').value.trim();
       const head = document.getElementById('newsHeadText').value.trim() || "BREAKING NEWS BULLETIN";
@@ -723,13 +1031,11 @@
       mediaRecorder.start();
       statusMessage.innerText = "AI News Anchor Hindi me bulletin padh raha hai...";
 
-      // Hindi Native Speech Engine with Android Voice Fallback
       if ('speechSynthesis' in window) {
         const u = new SpeechSynthesisUtterance(script);
         u.lang = 'hi-IN';
         u.rate = 0.95;
 
-        // Android Hindi Voice Selection
         const voices = window.speechSynthesis.getVoices();
         const hindiVoice = voices.find(v => v.lang.includes('hi') || v.lang.includes('hin'));
         if (hindiVoice) u.voice = hindiVoice;
@@ -752,7 +1058,6 @@
       function renderNewsFrame() {
         frame++;
 
-        // 1. Incident B-Roll Background
         ctx.fillStyle = '#0a0f1d';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -766,7 +1071,6 @@
           }
         }
 
-        // Dark Studio Vignette
         const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
         grad.addColorStop(0, 'rgba(0,0,0,0.6)');
         grad.addColorStop(0.7, 'rgba(0,0,0,0)');
@@ -774,7 +1078,6 @@
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 2. Picture-in-Picture Anchor with Lip Movement
         const anchor = customAnchorImg || defaultAnchor;
         const asize = isVertical ? 220 : 210;
         const ax = isVertical ? (canvas.width - asize) / 2 : canvas.width - 250;
@@ -783,13 +1086,12 @@
         ctx.save();
         ctx.beginPath();
         ctx.arc(ax + asize / 2, ay + asize / 2, asize / 2, 0, Math.PI * 2);
-        ctx.strokeStyle = '#ef4444';
+        ctx.strokeStyle = '#d4af37';
         ctx.lineWidth = 6;
         ctx.stroke();
         ctx.clip();
         ctx.drawImage(anchor, ax, ay, asize, asize);
 
-        // Real-Time Animated Mouth Lip-Sync
         if (isVoiceActive) {
           const mouthOpen = Math.abs(Math.sin(frame * 0.45)) * 15;
           ctx.fillStyle = '#3a0c10';
@@ -799,25 +1101,23 @@
         }
         ctx.restore();
 
-        // Anchor Plate
-        ctx.fillStyle = '#dc2626';
+        ctx.fillStyle = '#c81e1e';
         ctx.fillRect(ax + 10, ay + asize - 18, asize - 20, 28);
         ctx.fillStyle = '#fff';
-        ctx.font = '700 15px Outfit, sans-serif';
+        ctx.font = '700 15px Plus Jakarta Sans, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('LIVE ANCHOR', ax + asize / 2, ay + asize + 2);
         ctx.textAlign = 'left';
 
-        // 3. News Ticker Bottom Bar
         const tickerH = isVertical ? 90 : 75;
-        ctx.fillStyle = '#b91c1c';
+        ctx.fillStyle = '#c81e1e';
         ctx.fillRect(0, canvas.height - tickerH, canvas.width, tickerH);
 
         const badgeW = isVertical ? 150 : 180;
-        ctx.fillStyle = '#fef08a';
+        ctx.fillStyle = '#f3e5ab';
         ctx.fillRect(0, canvas.height - tickerH, badgeW, tickerH);
-        ctx.fillStyle = '#991b1b';
-        ctx.font = '800 23px Outfit, sans-serif';
+        ctx.fillStyle = '#8b0000';
+        ctx.font = '800 23px Plus Jakarta Sans, sans-serif';
         ctx.fillText('BREAKING', 18, canvas.height - (tickerH / 2) + 8);
 
         ctx.fillStyle = '#ffffff';
@@ -826,12 +1126,11 @@
         tickerScroll -= 4;
         if (tickerScroll < -2200) tickerScroll = canvas.width;
 
-        // Top Channel Header
-        ctx.fillStyle = '#fff';
-        ctx.font = '800 22px Outfit, sans-serif';
+        ctx.fillStyle = '#f3e5ab';
+        ctx.font = '800 22px Cinzel, serif';
         ctx.fillText('AI NEWS STUDIO', 24, 44);
 
-        ctx.fillStyle = '#fbbf24';
+        ctx.fillStyle = '#ffffff';
         ctx.font = '600 16px Plus Jakarta Sans, sans-serif';
         ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', canvas.width - (isVertical ? 220 : 250), 44);
 
