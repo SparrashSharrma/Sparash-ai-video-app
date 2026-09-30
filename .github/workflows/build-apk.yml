@@ -27,7 +27,7 @@ jobs:
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "AI Studio" "com.aistudio.app" --web-dir app
+          npx cap init "AI News Studio" "com.ainews.studio" --web-dir app
           rm -rf android
           npx cap add android
           npx cap copy android
@@ -52,6 +52,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: AI-Studio-Mobile-App
+          name: AI-News-Studio-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
-          
