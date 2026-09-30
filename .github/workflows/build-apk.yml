@@ -23,18 +23,18 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Install Capacitor & Prepare Project
+      - name: Install Capacitor & Native Plugins
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "AI News Studio" "com.ainews.studio" --web-dir app
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/share @capacitor/filesystem
+          npx cap init "AI Studio Pro" "com.ainews.studio" --web-dir app
           rm -rf android
           npx cap add android
           npx cap copy android
           mkdir -p android/app/src/main/assets/public
           cp -r app/* android/app/src/main/assets/public/
 
-      - name: Fix Duplicate Kotlin Classes
+      - name: Fix Duplicate Kotlin Classes & Add Permissions
         run: |
           cat << 'KOTLIN_FIX' >> android/app/build.gradle
           configurations.all {
@@ -52,5 +52,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: AI-News-Studio-APK
+          name: AI-Studio-Pro-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
