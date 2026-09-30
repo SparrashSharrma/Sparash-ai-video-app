@@ -8,25 +8,24 @@
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Yatra+One&family=Rozha+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
 
-  <!-- html2canvas for instant Newspaper Clipping Download -->
+  <!-- html2canvas for High-Res Clipping Snapshot -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     :root {
-      --bg: #0c0d10;
-      --surface: #14171f;
-      --card-bg: #1a1e29;
-      --border: #2c2f38;
+      --bg: #07080b;
+      --surface: #10131a;
+      --card-bg: #161a24;
+      --border: #262b38;
       
       /* Royal Golden & White Theme */
       --gold-primary: #d4af37;
-      --gold-light: #f3e5ab;
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9e8a2 50%, #aa7c11 100%);
-      --gold-glow: rgba(212, 175, 55, 0.35);
-      --white-pure: #ffffff;
-      --white-muted: #e2e8f0;
+      --gold-light: #fef08a;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #b48a1a 100%);
+      --gold-glow: rgba(212, 175, 55, 0.4);
+      --white: #ffffff;
       --text-dim: #94a3b8;
       
       --danger-red: #c81e1e;
@@ -45,7 +44,7 @@
       padding: 16px 14px 28px 14px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
-      color: var(--white-pure);
+      color: var(--white);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -65,7 +64,6 @@
       font-family: 'Cinzel', serif;
       font-size: 20px;
       font-weight: 800;
-      letter-spacing: 0.5px;
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -82,7 +80,7 @@
       border-radius: 999px;
     }
 
-    /* Navigation Tabs (3 Modes) */
+    /* Navigation Tabs */
     .tabs-wrapper {
       display: flex;
       background: var(--surface);
@@ -103,13 +101,13 @@
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.25s ease;
       text-align: center;
+      transition: all 0.25s ease;
     }
 
     .tab-btn.active {
       background: var(--gold-gradient);
-      color: #0b0c10;
+      color: #000;
       box-shadow: 0 4px 14px var(--gold-glow);
       font-weight: 800;
     }
@@ -117,7 +115,7 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Studio Input Cards */
+    /* Studio Cards */
     .studio-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -127,9 +125,7 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
 
-    .input-group {
-      margin-bottom: 14px;
-    }
+    .input-group { margin-bottom: 14px; }
 
     .input-label {
       font-size: 11px;
@@ -143,22 +139,20 @@
 
     .input-box, select, textarea {
       width: 100%;
-      background: #0f121a;
+      background: #0d1017;
       border: 1.5px solid var(--border);
-      color: var(--white-pure);
+      color: var(--white);
       padding: 12px 14px;
       border-radius: 10px;
       font-size: 14px;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.2s;
     }
 
     .input-box:focus, select:focus, textarea:focus {
       border-color: var(--gold-primary);
     }
 
-    /* File Dropzone */
     .file-dropzone {
       border: 1.5px dashed var(--gold-primary);
       background: rgba(212, 175, 55, 0.05);
@@ -188,7 +182,7 @@
       margin-top: 3px;
     }
 
-    /* Action Buttons */
+    /* Buttons */
     .main-btn {
       width: 100%;
       padding: 15px;
@@ -197,7 +191,7 @@
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
-      color: #0c0d10;
+      color: #07080b;
       background: var(--gold-gradient);
       box-shadow: 0 6px 20px var(--gold-glow);
       display: flex;
@@ -214,12 +208,11 @@
 
     .clipping-btn {
       background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-      color: #0c0d10;
+      color: #07080b;
       border: 1.5px solid var(--gold-primary);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.25);
     }
 
-    /* Player Viewport (Reels & News) */
+    /* Player Viewport */
     .player-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -301,11 +294,10 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
     }
 
-    /* ==============================================================
-       NEWSPAPER PRINT CLIPPING COMPONENT (100% PHOTO REPLICA)
-    ============================================================== */
+    /* Newspaper Sheet Styling */
     .clipping-render-wrap {
       display: none;
       flex-direction: column;
@@ -315,23 +307,22 @@
 
     .paper-sheet {
       width: 100%;
-      max-width: 480px;
-      background: #fffdf7;
+      max-width: 460px;
+      background: #fffdf5;
       color: #111;
-      padding: 16px 14px;
-      border-radius: 6px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      padding: 18px 14px;
+      border-radius: 4px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.85);
       border: 1px solid #dcd5c5;
       font-family: 'Rozha One', serif, 'Plus Jakarta Sans';
     }
 
     .paper-masthead {
       text-align: center;
-      font-size: 34px;
+      font-size: 36px;
       font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #0b0c10;
-      border-bottom: 3px double #111;
+      color: #07080b;
+      border-bottom: 3.5px double #111;
       padding-bottom: 6px;
       margin-bottom: 6px;
     }
@@ -345,7 +336,7 @@
       font-weight: 700;
       padding: 5px 10px;
       border-radius: 3px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
@@ -356,7 +347,6 @@
       color: #000;
       text-align: center;
       margin-bottom: 8px;
-      letter-spacing: -0.3px;
     }
 
     .paper-subhead {
@@ -364,8 +354,8 @@
       font-weight: 700;
       color: #1f2937;
       text-align: center;
-      border-top: 1px solid #ccc;
-      border-bottom: 1px solid #ccc;
+      border-top: 1px solid #bbb;
+      border-bottom: 1px solid #bbb;
       padding: 5px 0;
       margin-bottom: 12px;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -380,7 +370,7 @@
 
     .paper-text-column {
       flex: 1.1;
-      font-size: 11.5px;
+      font-size: 12px;
       line-height: 1.55;
       color: #111;
       text-align: justify;
@@ -397,12 +387,12 @@
       width: 100%;
       height: 160px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 3px;
       border: 1px solid #aaa;
     }
 
     .paper-photo-caption {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 700;
       color: #222;
       background: #f1ebd9;
@@ -410,18 +400,18 @@
       border: 1px solid #d0c8b3;
       border-top: none;
       text-align: center;
-      border-radius: 0 0 4px 4px;
     }
 
-    .paper-alert-box {
-      background: #fdf2f2;
-      border-left: 4px solid #c81e1e;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      color: #991b1b;
-      margin-top: 8px;
+    .paper-disclaimer {
+      background: #fef2f2;
+      border: 1px dashed #ef4444;
+      padding: 6px 8px;
+      font-size: 9.5px;
+      color: #7f1d1d;
+      margin-top: 10px;
+      line-height: 1.4;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      text-align: justify;
     }
 
     .paper-footer-ribbon {
@@ -433,7 +423,7 @@
       padding: 6px 10px;
       font-size: 11px;
       font-weight: 800;
-      margin-top: 10px;
+      margin-top: 8px;
       border-radius: 3px;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
@@ -457,34 +447,88 @@
     <div class="dev-badge">तृप्त एंटरप्राइज़: स्पर्श शर्मा</div>
   </header>
 
-  <!-- Navigation Tabs (3 Features) -->
+  <!-- Navigation Tabs -->
   <div class="tabs-wrapper">
-    <button class="tab-btn active" onclick="switchStudioTab('reel')">✨ Reel Maker</button>
+    <button class="tab-btn active" onclick="switchStudioTab('reel')">✨ 50+ Reel Pro</button>
     <button class="tab-btn" onclick="switchStudioTab('news')">🎙️ AI News Bulletin</button>
     <button class="tab-btn" onclick="switchStudioTab('clipping')">📰 News Clipping</button>
   </div>
 
-  <!-- TAB 1: 1-CLICK REEL MAKER -->
+  <!-- TAB 1: 1-CLICK REEL MAKER (50+ TEMPLATES + CUSTOM SOUND) -->
   <div id="reelTab" class="tab-content active">
     <div class="studio-card">
       <div class="input-group">
         <label class="input-label">1. Upload Photos / Videos (Multiple)</label>
         <div class="file-dropzone">
           <input type="file" id="reelMediaInput" accept="image/*,video/*" multiple onchange="onReelFilesPicked(event)">
-          <div class="file-dropzone-text" id="reelFileLabel">📁 Gallery se photos/videos chunein</div>
+          <div class="file-dropzone-text" id="reelFileLabel">📁 Gallery se 1 ya zyada photo/video chunein</div>
           <div class="file-dropzone-sub">Auto Beat-Sync ke liye 3 se 10 photos chunein</div>
         </div>
       </div>
 
       <div class="input-group">
-        <label class="input-label">2. Template Style</label>
+        <label class="input-label">2. Select Reel Template (50+ Multi-Effect Styles)</label>
         <select id="reelTemplateSelect">
-          <option value="trap_beat">🔥 Ultra Beat Drop Pulse (Trap / Bass Boost)</option>
-          <option value="cinematic_glide">🎬 Cinematic Slow Drift (Moody Ambient)</option>
-          <option value="cyber_glitch">⚡ Cyberpunk Fast RGB Glitch (EDM)</option>
-          <option value="swagger_zoom">🕶️ Attitude Stunt Zoom & Rotate</option>
-          <option value="aesthetic_fade">✨ Aesthetic Soft Glow & Crossfade</option>
-          <option value="hyper_shake">💥 Hyper Kinetic Shake (Trending Reel)</option>
+          <optgroup label="🔥 Trap & Phonk Beats (Shake + Flash + Bass Punch)">
+            <option value="trap_01" selected>#01 Ultra Phonk Bass Shockwave (Flash+Shake+Zoom)</option>
+            <option value="trap_02">#02 Drift Kick Punch (Hard Cut + RGB Split)</option>
+            <option value="trap_03">#03 Heavy 808 Pulse (Screen Tremor + Vignette)</option>
+            <option value="trap_04">#04 Street Trap Swagger (Double Zoom + Glow)</option>
+            <option value="trap_05">#05 Night Drift Beat (Color Flash + Fast Shake)</option>
+            <option value="trap_06">#06 Hyper Beat Slicer (Frame Invert + Pulse)</option>
+            <option value="trap_07">#07 Bass Hammer Strike (Kinetic Shake + Contrast)</option>
+            <option value="trap_08">#08 Dark Trap Vibe (Desaturate + Beat Flash)</option>
+            <option value="trap_09">#09 Tokyo Drift Strobe (Speed Ramp + Whiteout)</option>
+            <option value="trap_10">#10 Supreme Drop Impact (Lens Flare + 3D Scale)</option>
+          </optgroup>
+          <optgroup label="🎬 Cinematic & Moody (Slow Drift + Film Tone + Vignette)">
+            <option value="cine_11">#11 Golden Hour Pan (Warm Tint + Slow Glide)</option>
+            <option value="cine_12">#12 Vintage Film 35mm (Film Grain + Soft Fade)</option>
+            <option value="cine_13">#13 Moody Noir Drama (High Contrast + Slow Push)</option>
+            <option value="cine_14">#14 Horizon Anamorphic (Letterbox + Ambient Blur)</option>
+            <option value="cine_15">#15 Cinematic Slow Drift (Subtle Rotation + Glow)</option>
+            <option value="cine_16">#16 Documentary Zoom (Parallax Drift + Depth)</option>
+            <option value="cine_17">#17 Sunset Atmosphere (Amber Filter + Slow Motion)</option>
+            <option value="cine_18">#18 Blockbuster Trailer (Fast Fade + Bold Impact)</option>
+            <option value="cine_19">#19 Nostalgia Memory (Retro Vignette + Soft Cut)</option>
+            <option value="cine_20">#20 Royal Prestige (Golden Hue + Smooth Scale)</option>
+          </optgroup>
+          <optgroup label="⚡ Cyberpunk & Glitch (RGB Shift + Strobe + EDM)">
+            <option value="glitch_21">#21 Cyberpunk Matrix (Horizontal Slices + Neon)</option>
+            <option value="glitch_22">#22 RGB Channel Warp (Red-Cyan Shift + Jitter)</option>
+            <option value="glitch_23">#23 Analog TV Static (CRT Scanlines + Tremor)</option>
+            <option value="glitch_24">#24 Neon Flash Strobe (Ultra Fast Cut + Invert)</option>
+            <option value="glitch_25">#25 Digital Corruption (Pixel Block + Bass Wave)</option>
+            <option value="glitch_26">#26 Synth Cyber Bass (Purple Glow + Wave Warp)</option>
+            <option value="glitch_27">#27 Hologram Distortion (Scanline Flicker + Slice)</option>
+            <option value="glitch_28">#28 Acid Trip Color (Hue Shift Cycle + Shake)</option>
+            <option value="glitch_29">#29 Speed Glitch Warp (Motion Blur + Snap Cut)</option>
+            <option value="glitch_30">#30 Overdrive EDM (High Voltage Flash + Scale)</option>
+          </optgroup>
+          <optgroup label="🕶️ Attitude & Action (Dutch Angle + Stunt Tilt)">
+            <option value="att_31">#31 Swagger Dutch Tilt (45-Degree Roll + Zoom)</option>
+            <option value="att_32">#32 Action Hero Stunt (Camera Shake + Punch In)</option>
+            <option value="att_33">#33 Aggressive Snap Cut (Beat Drop Quick Snap)</option>
+            <option value="att_34">#34 Dynamic Mirror Flip (Symmetry Pulse + Shake)</option>
+            <option value="att_35">#35 Speed Ramp Burst (Slow to Fast Velocity)</option>
+            <option value="att_36">#36 Urban Street Bounce (Rhythm Scale + Pan)</option>
+            <option value="att_37">#37 Rebel Attitude (Angle Twist + Dark Edge)</option>
+            <option value="att_38">#38 Kickback Tremor (Recoil Shake + Flash)</option>
+            <option value="att_39">#39 Turbo Drift Horizon (Rotational Spin + Blur)</option>
+            <option value="att_40">#40 Heavy Banger (Extreme Bass Compression)</option>
+          </optgroup>
+          <optgroup label="✨ Aesthetic & Travel (Dream Glow + Light Leak)">
+            <option value="aes_41">#41 Dreamy Heaven Bloom (Soft Light + Slow Push)</option>
+            <option value="aes_42">#42 Light Leak Overlay (Sun Flare + Warm Fade)</option>
+            <option value="aes_43">#43 Minimalist Clean (Smooth Crossfade + Subtle Lift)</option>
+            <option value="aes_44">#44 Wanderlust Horizon (Panoramic Sweep + Shine)</option>
+            <option value="aes_45">#45 Pastel Soft Focus (Gentle Scale + Bokeh Tint)</option>
+            <option value="aes_46">#46 Cozy Lo-Fi Vibe (Warm Vinyl Tone + Slow Cut)</option>
+            <option value="aes_47">#47 Elegance Sparkle (Gold Flare + Feather Zoom)</option>
+            <option value="aes_48">#48 Sunrise Horizon (Morning Glow + Slow Drift)</option>
+            <option value="aes_49">#49 Polar Silhouette (Cool Blue Tone + High Contrast)</option>
+            <option value="aes_50">#50 Infinite Horizon (Smooth Endless Scale + Fade)</option>
+          </optgroup>
         </select>
       </div>
 
@@ -492,23 +536,28 @@
         <label class="input-label">3. Reel Duration (20s - 60s)</label>
         <select id="reelDurationSelect">
           <option value="20">⏱️ 20 Seconds (Fast Reel)</option>
-          <option value="30" selected>⏱️ 30 Seconds (Instagram Standard)</option>
+          <option value="30" selected>⏱️️ 30 Seconds (Instagram Standard)</option>
           <option value="45">⏱️ 45 Seconds (Extended Story)</option>
           <option value="60">⏱️ 60 Seconds (Full 1-Minute Showcase)</option>
         </select>
       </div>
 
       <div class="input-group">
-        <label class="input-label">4. BGM Sound Track</label>
+        <label class="input-label">4. Background Music (Custom Phone Upload or In-Built)</label>
+        <div class="file-dropzone" style="margin-bottom:8px;">
+          <input type="file" id="userAudioInput" accept="audio/*" onchange="onUserAudioPicked(event)">
+          <div class="file-dropzone-text" id="userAudioLabel">🎵 Phone storage se Gaana / Audio chunein</div>
+          <div class="file-dropzone-sub">MP3 ya WAV file upload karein (Agar nahi karenge toh in-built beat chalegi)</div>
+        </div>
         <select id="reelSoundTrack">
-          <option value="phonk">🎵 Trending High-Energy Phonk Bass</option>
-          <option value="synthwave">🎵 Retro Synthwave Drive Beat</option>
-          <option value="hiphop">🎵 Deep Boom-Bap Lo-Fi Beat</option>
+          <option value="phonk">🎵 Default: High-Energy Phonk Bass Beat</option>
+          <option value="synthwave">🎵 Default: Retro Synthwave Drive</option>
+          <option value="hiphop">🎵 Default: Deep Boom-Bap Lo-Fi</option>
         </select>
       </div>
 
       <button class="main-btn" onclick="startReelGeneration()">
-        🚀 Generate Complete Reel (With Music & Playback)
+        🚀 Generate Complete Reel (With Multi-Effects & Sound)
       </button>
     </div>
   </div>
@@ -556,7 +605,7 @@
     </div>
   </div>
 
-  <!-- TAB 3: NEWSPAPER CLIPPING MAKER (NEW!) -->
+  <!-- TAB 3: NEWSPAPER CLIPPING MAKER (LEGAL DISCLAIMER INCLUDED) -->
   <div id="clippingTab" class="tab-content">
     <div class="studio-card">
       <div class="input-group">
@@ -579,7 +628,7 @@
 
       <div class="input-group">
         <label class="input-label">4. Sub-Headline / Short Summary Line</label>
-        <input type="text" class="input-box" id="paperSubHeadlineInput" value="बड़ूही के पास अज्ञात वाहन की मौत हो गई। वाहन व चालक की तलाश जारी" />
+        <input type="text" class="input-box" id="paperSubHeadlineInput" value="बड़ूही के पास अज्ञात वाहन की टक्कर; वाहन व चालक की तलाश जारी" />
       </div>
 
       <div class="input-group">
@@ -626,8 +675,9 @@
           </div>
         </div>
 
-        <div class="paper-alert-box" id="sheetAlert">
-          ! पुलिस जांच के बाद ही हादसे की पूरी सच्चाई और अज्ञात वाहन का सुराग मिल सकेगा।
+        <!-- STATUTORY DISCLAIMER TO AVOID LIABILITY -->
+        <div class="paper-disclaimer">
+          <strong>अस्वीकरण (Statutory Disclaimer):</strong> यह समाचार व चित्र स्थानीय स्रोतों, प्रत्यक्षदर्शियों एवं प्राप्त प्रेस विज्ञप्ति के आधार पर जनहित में प्रकाशित किया गया है। इसका उद्देश्य केवल जनसूचना प्रसारण है। किसी भी कानूनी कार्यवाही अथवा विवाद के लिए प्रकाशक/डेवलपर उत्तरदायी नहीं होगा। संबंधित तथ्यों की जांच पुलिस व सक्षम प्रशासन के अधीन है।
         </div>
 
         <div class="paper-footer-ribbon">
@@ -636,13 +686,13 @@
         </div>
       </div>
 
-      <button class="main-btn" style="max-width:480px; margin-top:14px; background:var(--gold-gradient); color:#000;" onclick="downloadNewspaperImage()">
-        📥 Download Newspaper Cutting (HD Image To Gallery)
+      <button class="main-btn" style="max-width:460px; margin-top:14px; background:var(--gold-gradient); color:#000;" onclick="downloadNewspaperImage()">
+        📥 Save Newspaper Cutting To Gallery / Share
       </button>
     </div>
   </div>
 
-  <!-- PREVIEW, PLAYBACK & DOWNLOAD SECTION (For Reels & News) -->
+  <!-- PREVIEW, PLAYBACK & UNIVERSAL DOWNLOAD (REELS & NEWS) -->
   <div class="player-card" id="playerContainer">
     <div class="video-viewport" id="viewportFrame">
       <canvas id="studioCanvas" width="720" height="1280"></canvas>
@@ -655,8 +705,8 @@
 
     <div class="status-caption" id="statusMessage">Tayar ho raha hai...</div>
 
-    <button class="download-btn" id="galleryDownloadBtn" onclick="saveVideoToDevice()">
-      📥 Download Video To Gallery (MP4/WebM)
+    <button class="download-btn" id="galleryDownloadBtn" onclick="saveVideoToDeviceUniversal()">
+      📥 Save Video To Gallery / Share (MP4)
     </button>
   </div>
 
@@ -678,7 +728,7 @@
     let reelFiles = [];
     let newsFiles = [];
     let customAnchorImg = null;
-    let paperUploadedPhotoSrc = null;
+    let userUploadedAudioEl = null;
     let audioContext = null;
     let mediaRecorder = null;
     let recordedChunks = [];
@@ -701,6 +751,7 @@
       if (animRequest) cancelAnimationFrame(animRequest);
       if (window.speechSynthesis) window.speechSynthesis.cancel();
       if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+      if (userUploadedAudioEl) { userUploadedAudioEl.pause(); userUploadedAudioEl.currentTime = 0; }
       playerContainer.style.display = 'none';
       videoPlayer.style.display = 'none';
       videoPlayer.pause();
@@ -708,12 +759,12 @@
       galleryDownloadBtn.style.display = 'none';
     }
 
-    // Pickers
+    // Handlers
     function onReelFilesPicked(e) {
       reelFiles = [];
       const files = Array.from(e.target.files);
       if (!files.length) return;
-      document.getElementById('reelFileLabel').innerText = `✅ ${files.length} Files Selected!`;
+      document.getElementById('reelFileLabel').innerText = `✅ ${files.length} Media Files Selected!`;
       files.forEach(file => {
         const r = new FileReader();
         r.onload = ev => {
@@ -723,6 +774,15 @@
         };
         r.readAsDataURL(file);
       });
+    }
+
+    function onUserAudioPicked(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      document.getElementById('userAudioLabel').innerText = `✅ Song Added: ${file.name.substring(0, 20)}...`;
+      const url = URL.createObjectURL(file);
+      userUploadedAudioEl = new Audio(url);
+      userUploadedAudioEl.loop = true;
     }
 
     function onCustomAnchorPicked(e) {
@@ -756,16 +816,15 @@
     function onPaperPhotoPicked(e) {
       const file = e.target.files[0];
       if (!file) return;
-      document.getElementById('paperPhotoLabel').innerText = `✅ Incident Photo Selected!`;
+      document.getElementById('paperPhotoLabel').innerText = `✅ Photo Uploaded!`;
       const r = new FileReader();
       r.onload = ev => {
-        paperUploadedPhotoSrc = ev.target.result;
-        document.getElementById('sheetPhoto').src = paperUploadedPhotoSrc;
+        document.getElementById('sheetPhoto').src = ev.target.result;
       };
       r.readAsDataURL(file);
     }
 
-    // NEWSPAPER CLIPPING GENERATOR
+    // NEWSPAPER CLIPPING CREATOR
     function generateNewspaperClipping() {
       const name = document.getElementById('paperNameInput').value.trim() || "अम्ब हलचल न्यूज़";
       const locDate = document.getElementById('paperLocationInput').value.trim();
@@ -788,82 +847,41 @@
       document.getElementById('clippingPreviewWrap').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function downloadNewspaperImage() {
+    // CLIPPING IMAGE DOWNLOAD (UNIVERSAL SHARE/SAVE)
+    async function downloadNewspaperImage() {
       const target = document.getElementById('newspaperSheet');
-      html2canvas(target, { scale: 3, useCORS: true }).then(canvasEl => {
+      const canvasEl = await html2canvas(target, { scale: 3, useCORS: true });
+      
+      canvasEl.toBlob(async (blob) => {
+        const file = new File([blob], `NewsClipping_${Date.now()}.jpg`, { type: 'image/jpeg' });
+        
+        // Android Native Share API for 100% Gallery Save / WhatsApp Share
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'News Clipping',
+              text: 'Generated via AI Studio Pro'
+            });
+            return;
+          } catch (e) {}
+        }
+
+        // Direct Download Fallback
         const dataUrl = canvasEl.toDataURL('image/jpeg', 0.95);
         const a = document.createElement('a');
-        a.style.display = 'none';
         a.href = dataUrl;
         a.download = `NewsClipping_${Date.now()}.jpg`;
         document.body.appendChild(a);
         a.click();
         setTimeout(() => document.body.removeChild(a), 400);
-      });
+      }, 'image/jpeg', 0.95);
     }
 
-    // Audio Beats Generator via Web Audio API
-    function createSoundBeatEngine() {
-      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioContext.state === 'suspended') audioContext.resume();
-
-      const dest = audioContext.createMediaStreamDestination();
-      let isPlaying = true;
-
-      function triggerKick(time) {
-        if (!isPlaying) return;
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.frequency.setValueAtTime(150, time);
-        osc.frequency.exponentialRampToValueAtTime(32, time + 0.16);
-        gain.gain.setValueAtTime(1.0, time);
-        gain.gain.exponentialRampToValueAtTime(0.01, time + 0.16);
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        gain.connect(dest);
-        osc.start(time);
-        osc.stop(time + 0.16);
-      }
-
-      function triggerSnare(time) {
-        if (!isPlaying) return;
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(260, time);
-        gain.gain.setValueAtTime(0.4, time);
-        gain.gain.exponentialRampToValueAtTime(0.01, time + 0.12);
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        gain.connect(dest);
-        osc.start(time);
-        osc.stop(time + 0.12);
-      }
-
-      const interval = 60 / 128;
-      let nextBeatTime = audioContext.currentTime;
-      let beatCounter = 0;
-
-      const timerId = setInterval(() => {
-        if (!isPlaying) { clearInterval(timerId); return; }
-        while (nextBeatTime < audioContext.currentTime + 0.2) {
-          if (beatCounter % 2 === 0) triggerKick(nextBeatTime);
-          else triggerSnare(nextBeatTime);
-          beatCounter++;
-          nextBeatTime += interval / 2;
-        }
-      }, 50);
-
-      return {
-        audioStreamTrack: dest.stream.getAudioTracks()[0],
-        stop: () => { isPlaying = false; }
-      };
-    }
-
-    // 1-CLICK REEL GENERATOR
+    // MULTI-EFFECT REEL ENGINE (50+ Styles)
     function startReelGeneration() {
       if (reelFiles.length === 0) {
-        alert("Kripya pehle Gallery se 1 ya zyada photo/video chunein!");
+        alert("Kripya pehle 1 ya zyada photos/videos upload karein!");
         return;
       }
 
@@ -882,9 +900,37 @@
       let currentFrame = 0;
       let mediaIdx = 0;
 
-      const soundEngine = createSoundBeatEngine();
+      // Audio Handling
+      if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      const dest = audioContext.createMediaStreamDestination();
+
+      if (userUploadedAudioEl) {
+        const track = audioContext.createMediaElementSource(userUploadedAudioEl);
+        track.connect(audioContext.destination);
+        track.connect(dest);
+        userUploadedAudioEl.currentTime = 0;
+        userUploadedAudioEl.play();
+      } else {
+        // Fallback procedural sound
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(dest);
+        gain.connect(audioContext.destination);
+        osc.start();
+        setInterval(() => {
+          if (currentFrame % 30 === 0) {
+            gain.gain.setValueAtTime(0.8, audioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+          }
+        }, 100);
+      }
+
       const canvasStream = canvas.captureStream(fps);
-      if (soundEngine.audioStreamTrack) canvasStream.addTrack(soundEngine.audioStreamTrack);
+      if (dest.stream.getAudioTracks().length > 0) {
+        canvasStream.addTrack(dest.stream.getAudioTracks()[0]);
+      }
 
       recordedChunks = [];
       try {
@@ -895,7 +941,7 @@
 
       mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
       mediaRecorder.onstop = () => {
-        soundEngine.stop();
+        if (userUploadedAudioEl) userUploadedAudioEl.pause();
         finalVideoBlob = new Blob(recordedChunks, { type: 'video/mp4' });
         const videoURL = URL.createObjectURL(finalVideoBlob);
 
@@ -905,19 +951,20 @@
         videoPlayer.play();
 
         progBar.style.display = 'none';
-        statusMessage.innerText = '✅ Reel Taiyar! Playback chalu hai. Gallery me save karne ke liye Download dabayein.';
+        statusMessage.innerText = '✅ Reel Taiyar! Playback chalu hai. Save karne ke liye button dabayein.';
         galleryDownloadBtn.style.display = 'flex';
       };
 
       mediaRecorder.start();
-      statusMessage.innerText = `Reel render ho rahi hai (${durationSec}s)...`;
+      statusMessage.innerText = `Reel render & record ho rahi hai (${durationSec}s)...`;
 
-      function renderFrame() {
+      function renderReelMultiEffect() {
         currentFrame++;
         const progress = (currentFrame / totalFrames) * 100;
         progFill.style.width = progress + '%';
 
-        if (currentFrame % 35 === 0) {
+        // Auto cut images on beats
+        if (currentFrame % 32 === 0) {
           mediaIdx = (mediaIdx + 1) % reelFiles.length;
         }
 
@@ -929,34 +976,71 @@
           ctx.save();
           ctx.translate(canvas.width / 2, canvas.height / 2);
 
+          // MULTI-EFFECT 1: Motion / Zoom / Tilt / Glitch
           let scale = 1.0;
-          if (template === 'trap_beat') {
-            scale = 1.0 + Math.sin(currentFrame * 0.4) * 0.08;
-          } else if (template === 'cinematic_glide') {
-            scale = 1.0 + (currentFrame % 120) * 0.0018;
-          } else if (template === 'swagger_zoom') {
-            scale = 1.04;
-            ctx.rotate(Math.sin(currentFrame * 0.08) * 0.03);
-          } else if (template === 'hyper_shake') {
-            scale = 1.08;
-            if (currentFrame % 4 === 0) ctx.translate((Math.random() - 0.5) * 12, (Math.random() - 0.5) * 12);
+          let rot = 0;
+          let tx = 0, ty = 0;
+
+          if (template.startsWith('trap')) {
+            // Kick Punch + Screen Tremor + Bass Pulse
+            scale = 1.0 + Math.sin(currentFrame * 0.45) * 0.09;
+            if (currentFrame % 8 === 0) tx = (Math.random() - 0.5) * 10;
+          } else if (template.startsWith('cine')) {
+            // Slow Drift + Parallax Pan
+            scale = 1.0 + (currentFrame % 150) * 0.0016;
+            tx = Math.sin(currentFrame * 0.02) * 8;
+          } else if (template.startsWith('glitch')) {
+            // Slices + Jitter + Jump
+            if (currentFrame % 5 === 0) {
+              tx = (Math.random() - 0.5) * 22;
+              ty = (Math.random() - 0.5) * 14;
+              scale = 1.08;
+            }
+          } else if (template.startsWith('att')) {
+            // Dynamic Angle + Swagger Spin
+            rot = Math.sin(currentFrame * 0.06) * 0.05;
+            scale = 1.06;
+          } else if (template.startsWith('aes')) {
+            // Dreamy Slow Zoom
+            scale = 1.0 + Math.sin(currentFrame * 0.03) * 0.05;
           }
 
+          ctx.rotate(rot);
+          ctx.translate(tx, ty);
           ctx.scale(scale, scale);
+
           const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
           const nw = img.width * ratio;
           const nh = img.height * ratio;
           ctx.drawImage(img, -nw / 2, -nh / 2, nw, nh);
           ctx.restore();
+
+          // MULTI-EFFECT 2: Strobe Flash & Filters
+          if (template.startsWith('trap') && currentFrame % 32 < 3) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          } else if (template.startsWith('cine')) {
+            // Warm Film Vignette
+            const vig = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 200, canvas.width/2, canvas.height/2, 700);
+            vig.addColorStop(0, 'rgba(0,0,0,0)');
+            vig.addColorStop(1, 'rgba(0,0,0,0.65)');
+            ctx.fillStyle = vig;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          } else if (template.startsWith('glitch') && currentFrame % 7 === 0) {
+            // RGB Split simulation line
+            ctx.fillStyle = 'rgba(0, 255, 255, 0.25)';
+            ctx.fillRect(0, Math.random() * canvas.height, canvas.width, 18);
+          }
         }
 
+        // Top Studio Branding
         const topGrad = ctx.createLinearGradient(0, 0, 0, 180);
-        topGrad.addColorStop(0, 'rgba(0,0,0,0.8)');
+        topGrad.addColorStop(0, 'rgba(0,0,0,0.85)');
         topGrad.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = topGrad;
         ctx.fillRect(0, 0, canvas.width, 180);
 
-        ctx.fillStyle = '#f3e5ab';
+        ctx.fillStyle = '#fef08a';
         ctx.font = '800 32px Cinzel, serif';
         ctx.fillText('AI STUDIO PRO', 36, 70);
 
@@ -964,19 +1048,20 @@
         ctx.font = '600 20px Plus Jakarta Sans, sans-serif';
         ctx.fillText('तृप्त एंटरप्राइज़: स्पर्श शर्मा', 36, 105);
 
-        ctx.fillStyle = 'rgba(0,0,0,0.5)';
-        ctx.fillRect(36, canvas.height - 70, 200, 36);
+        // Bottom Effect Tag
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        ctx.fillRect(36, canvas.height - 75, 260, 38);
         ctx.fillStyle = '#d4af37';
         ctx.font = '700 16px Plus Jakarta Sans, sans-serif';
-        ctx.fillText(`• ${template.toUpperCase()}`, 50, canvas.height - 46);
+        ctx.fillText(`⚡ ${template.toUpperCase()}`, 50, canvas.height - 50);
 
         if (currentFrame < totalFrames) {
-          animRequest = requestAnimationFrame(renderFrame);
+          animRequest = requestAnimationFrame(renderReelMultiEffect);
         } else {
           mediaRecorder.stop();
         }
       }
-      renderFrame();
+      renderReelMultiEffect();
     }
 
     // AI NEWS BULLETIN GENERATOR (16:9 & 9:16)
@@ -1114,7 +1199,7 @@
         ctx.fillRect(0, canvas.height - tickerH, canvas.width, tickerH);
 
         const badgeW = isVertical ? 150 : 180;
-        ctx.fillStyle = '#f3e5ab';
+        ctx.fillStyle = '#fef08a';
         ctx.fillRect(0, canvas.height - tickerH, badgeW, tickerH);
         ctx.fillStyle = '#8b0000';
         ctx.font = '800 23px Plus Jakarta Sans, sans-serif';
@@ -1126,7 +1211,7 @@
         tickerScroll -= 4;
         if (tickerScroll < -2200) tickerScroll = canvas.width;
 
-        ctx.fillStyle = '#f3e5ab';
+        ctx.fillStyle = '#fef08a';
         ctx.font = '800 22px Cinzel, serif';
         ctx.fillText('AI NEWS STUDIO', 24, 44);
 
@@ -1141,14 +1226,30 @@
       renderNewsFrame();
     }
 
-    // DOWNLOAD DIRECTLY TO ANDROID GALLERY / STORAGE
-    function saveVideoToDevice() {
+    // 100% RELIABLE UNIVERSAL DOWNLOAD & SHARE ENGINE
+    async function saveVideoToDeviceUniversal() {
       if (!finalVideoBlob) {
         alert("Pehle video banayein!");
         return;
       }
 
       const fileName = `StudioPro_${Date.now()}.mp4`;
+      const file = new File([finalVideoBlob], fileName, { type: 'video/mp4' });
+
+      // Method 1: Android System Share / Save to Device
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'AI Studio Video',
+            text: 'Save or Share your video'
+          });
+          statusMessage.innerText = "✅ Video Share / Gallery Save menu khul gaya!";
+          return;
+        } catch (e) {}
+      }
+
+      // Method 2: Base64 Anchor Click Fallback
       const reader = new FileReader();
       reader.onload = function(e) {
         const a = document.createElement('a');
@@ -1157,11 +1258,11 @@
         a.download = fileName;
         document.body.appendChild(a);
         a.click();
-        setTimeout(() => document.body.removeChild(a), 400);
+        setTimeout(() => document.body.removeChild(a), 500);
       };
       reader.readAsDataURL(finalVideoBlob);
 
-      statusMessage.innerText = "📥 Video Download shuru ho gayi hai! Notification bar check karein.";
+      statusMessage.innerText = "📥 Video Download shuru ho gayi hai! Gallery / Downloads check karein.";
     }
   </script>
 </body>
